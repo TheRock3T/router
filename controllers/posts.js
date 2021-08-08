@@ -1,4 +1,4 @@
-import {sort} from '../utils/functions.js'
+import {sortId} from '../utils/functions.js'
 import {parseLocalPosts} from '../utils/constants.js'
 
 class Posts {
@@ -80,6 +80,7 @@ class Posts {
         const parseJsonPosts = JSON.parse(content)
         let newPosts = ''
         let users = ''
+        sortId(parseJsonPosts)
 
         if (parseLocalPosts !== null) {
             parseLocalPosts.forEach(item => {
@@ -92,7 +93,6 @@ class Posts {
             })
         }
 
-        sort(parseJsonPosts)
         parseJsonPosts.forEach(item => {
             users += `
         <div class="block">
@@ -132,6 +132,7 @@ class Posts {
                     localStorage.setItem("posts", "[]")
                 }
 
+                const parseLocalPosts = JSON.parse(localStorage.getItem("posts"))
                 parseLocalPosts.push({title: inputTitlePost.value, text: inputTextPost.value})
                 localStorage.setItem("posts", JSON.stringify(parseLocalPosts));
                 alert(`Добавлен новый пост:  TITLE: ${inputTitlePost.value},  TEXT: ${inputTextPost.value}`)

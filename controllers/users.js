@@ -1,5 +1,5 @@
-import {sort} from '../utils/functions.js'
-import {regName, regSurname, regAge, regId, parseLocalUsers} from '../utils/constants.js'
+import {sortAge} from '../utils/functions.js'
+import {regName, regSurname, regAge, regId, parseLocalUsers, sortParam, sortKey} from '../utils/constants.js'
 class Users {
     constructor() {
         this.autoHTML()
@@ -22,6 +22,7 @@ class Users {
     useMethod() {
         let [controller, method, ...params] = window.location.hash.substring(2).split('/')
         this.method = method
+        this.params = params
 
         if (this.method !== undefined) {
             this.camelCase()
@@ -39,6 +40,8 @@ class Users {
             this.addUser()
         }
 
+        this.filterParams(params)
+
     }
 
     async indexUsers() {
@@ -48,9 +51,7 @@ class Users {
         const parseJsonUsers = JSON.parse(content)
         let newUsers = ''
         let users = ''
-        // const newJsonUser = parseJsonUsers.filter(function(item){
-        //     return item.userId == 6;
-        // })
+
 
         if (parseLocalUsers !== null) {
             parseLocalUsers.forEach(item => {
@@ -62,7 +63,6 @@ class Users {
                     <h1>Возраст: ${item.age}</h1>  
                 </div>
                 `
-                console.log(newUsers)
             })
         }
 
@@ -82,9 +82,11 @@ class Users {
     filterParams(params) {
         params.forEach((item, index) => {
             if (index % 2 === 0) {
-                return this.sortParam = item
+                this.sortParam = item
+                return this.sortParam
             } else {
-                return this.sortKey = item
+                this.sortKey = item
+                return this.sortKey
             }
         })
     }
@@ -96,23 +98,33 @@ class Users {
         const parseJsonUsers = JSON.parse(content)
         let newUsers = ''
         let users = ''
-        sort(parseJsonUsers)
 
-        if (parseLocalUsers !== null) {
-            parseLocalUsers.forEach(item => {
-                newUsers += `
-                <div class="block">
-                    <h1>ID: ${item.userId}</h1> 
-                    <h1>Имя: ${item.name}</h1>
-                    <h1>Фамилия: ${item.surName}</h1>
-                    <h1>Возраст: ${item.age}</h1>  
-                </div>
-                `
-            })
-        }
+        sortAge(parseJsonUsers)
 
-        parseJsonUsers.forEach(item => {
-            users += `
+        const newJsonUser = parseJsonUsers.filter((item) => {
+            let sortKey = this.sortKey
+            let sortParam = this.sortParam
+
+            if (sortParam === 'userId') {
+                return item.userId == sortKey;
+            }
+
+            if (sortParam === 'name') {
+                return item.userId == sortKey;
+            }
+
+            if (sortParam === 'surName') {
+                return item.surName == sortKey;
+            }
+
+            if (sortParam === 'age') {
+                return item.age == sortKey;
+            }
+        })
+
+        if (newJsonUser.length !== 0) {
+            parseJsonUsers.forEach(item => {
+                users += `
             <div class="block">
                 <h1>ID: ${item.userId}</h1>
                 <h1>Имя: ${item.name}</h1> 
@@ -120,8 +132,21 @@ class Users {
                 <h1>Возраст: ${item.age}</h1>   
             </div>
         `
-            view.innerHTML = users + newUsers
-        })
+                view.innerHTML = users + newUsers
+            })
+        } else {
+            parseJsonUsers.forEach(item => {
+                users += `
+            <div class="block">
+                <h1>ID: ${item.userId}</h1>
+                <h1>Имя: ${item.name}</h1> 
+                <h1>Фамилия: ${item.surName}</h1>
+                <h1>Возраст: ${item.age}</h1>   
+            </div>
+        `
+                view.innerHTML = users + newUsers
+            })
+        }
     }
 
     addUser() {
@@ -162,6 +187,7 @@ class Users {
                     localStorage.setItem("users", "[]")
                 }
 
+                const parseLocalUsers = JSON.parse(localStorage.getItem("users"))
                 parseLocalUsers.push({userId:inputId.value, name:inputName.value, surName:inputSurname.value, age: inputAge.value})
                 localStorage.setItem("users", JSON.stringify(parseLocalUsers));
 

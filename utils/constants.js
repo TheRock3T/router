@@ -6,5 +6,8 @@
     export const parseLocalUsers = JSON.parse(localStorage.getItem("users"))
     //POSTS CONSTANTS
     export const parseLocalPosts = JSON.parse(localStorage.getItem("posts"))
+    //OTHER
+    export let sortParam = ''
+    export let sortKey = ''
 
 
