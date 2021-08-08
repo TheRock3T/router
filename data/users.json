@@ -1,0 +1,38 @@
+[
+  {
+    "userId": 1,
+    "name": "Pasha",
+    "surName": "Kedalo",
+    "age": 27
+  },
+  {
+    "userId": 2,
+    "name": "Evgeniy",
+    "surName": "Mokich",
+    "age": 28
+  },
+  {
+    "userId": 3,
+    "name": "Vlad",
+    "surName": "Garchichko",
+    "age": 19
+  },
+  {
+    "userId": 4,
+    "name": "Arina",
+    "surName": "Ivanikhina",
+    "age": 19
+  },
+  {
+    "userId": 5,
+    "name": "Egor",
+    "surName": "Patselya",
+    "age": 23
+  },
+  {
+    "userId": 6,
+    "name": "Dmitry",
+    "surName": "Rudakov,",
+    "age": 20
+  }
+]

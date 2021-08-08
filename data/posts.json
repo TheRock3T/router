@@ -1,0 +1,27 @@
+[
+  {
+    "postNum": 5,
+    "title": "POST NUMBER 5",
+    "text": "THIS TEXT NOT TEXT"
+  },
+  {
+    "postNum": 2,
+    "title": "POST NUMBER 2",
+    "text": "HELLO WORLD"
+  },
+  {
+    "postNum": 3,
+    "title": "POST NUMBER 3",
+    "text": "JAVASCRIPT ONE LOVE"
+  },
+  {
+    "postNum": 1,
+    "title": "POST NUMBER 1",
+    "text": "WHAT IS VUE?"
+  },
+  {
+    "postNum": 4,
+    "title": "POST NUMBER 4",
+    "text": "YOU USE REACT?"
+  }
+]
