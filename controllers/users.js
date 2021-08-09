@@ -87,15 +87,7 @@ class Users {
     }
 
     filterParams(params) {
-        params.forEach((item, index) => {
-            if (index % 2 === 0) {
-                this.sortParam = item
-                return this.sortParam
-            } else {
-                this.sortKey = item
-                return this.sortKey
-            }
-        })
+        params.forEach((item, index) => (index % 2 === 0) ? this.sortParam = item : this.sortKey = item)
     }
 
     async sortingUsers() {
@@ -113,22 +105,18 @@ class Users {
             let sortParam = this.sortParam
 
             if (sortParam === 'userId') {
-                console.log('userId !')
                 return item.userId == sortKey;
             }
 
             if (sortParam === 'name') {
-                console.log('name !')
                 return item.name == sortKey;
             }
 
             if (sortParam === 'surName') {
-                console.log('surname !')
                 return item.surName == sortKey;
             }
 
             if (sortParam === 'age') {
-                console.log('age !')
                 return item.age == sortKey;
             }
         })
@@ -157,6 +145,10 @@ class Users {
         `
                 view.innerHTML = users + newUsers
             })
+
+            if (this.sortParam !== undefined && checkParams.includes(this.sortParam) === false) {
+                alert('Данный параметр не найден, буду выведены все пользователи')
+            }
         }
     }
 

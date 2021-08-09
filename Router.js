@@ -1,6 +1,5 @@
 const validSlashWord = /\b[A-Za-z]+(?:-+[A-Za-z]+)+\b/
 const validWord = /^[A-Za-z]*$/
-const validParams = /[A-Za-zа-яёА-ЯЁ0-9]{1,10}/
 const checkMethodUsers = ['index-users', 'sorting-users', 'add-user']
 const checkMethodPosts = ['index-posts', 'sorting-posts', 'add-post']
 
