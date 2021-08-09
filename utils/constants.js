@@ -4,6 +4,7 @@
     export const regId = /[0-9]{1,999999}/
     export const regAge = /[0-9]{1,3}/
     export const parseLocalUsers = JSON.parse(localStorage.getItem("users"))
+    export const checkParams = ['userId', 'name', 'surName', 'age']
     //POSTS CONSTANTS
     export const parseLocalPosts = JSON.parse(localStorage.getItem("posts"))
     //OTHER

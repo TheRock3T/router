@@ -1,5 +1,5 @@
 import {sortAge} from '../utils/functions.js'
-import {regName, regSurname, regAge, regId, parseLocalUsers, sortParam, sortKey} from '../utils/constants.js'
+import {regName, regSurname, regAge, regId, parseLocalUsers, sortParam, sortKey, checkParams} from '../utils/constants.js'
 class Users {
     constructor() {
         this.autoHTML()
@@ -22,7 +22,6 @@ class Users {
     useMethod() {
         let [controller, method, ...params] = window.location.hash.substring(2).split('/')
         this.method = method
-        this.params = params
 
         if (this.method !== undefined) {
             this.camelCase()
@@ -106,24 +105,28 @@ class Users {
             let sortParam = this.sortParam
 
             if (sortParam === 'userId') {
+                console.log('userId !')
                 return item.userId == sortKey;
             }
 
             if (sortParam === 'name') {
-                return item.userId == sortKey;
+                console.log('name !')
+                return item.name == sortKey;
             }
 
             if (sortParam === 'surName') {
+                console.log('surname !')
                 return item.surName == sortKey;
             }
 
             if (sortParam === 'age') {
+                console.log('age !')
                 return item.age == sortKey;
             }
         })
 
         if (newJsonUser.length !== 0) {
-            parseJsonUsers.forEach(item => {
+            newJsonUser.forEach(item => {
                 users += `
             <div class="block">
                 <h1>ID: ${item.userId}</h1>

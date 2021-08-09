@@ -8,6 +8,7 @@ class Router {
 
     handler() {
         let [controller, method, ...params] = window.location.hash.substring(2).split('/')
+
         if (validSlashWord.test(controller) === false && validWord.test(controller) === false) {
             window.location.hash = '/error404'
             alert('CONTROLLER NOT FOUND')
