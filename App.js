@@ -7,7 +7,7 @@ class App {
 
     init() {
         addEventListener("load", this.AutoLoader.handler)
-        addEventListener('hashchange', this.Router.handler)
+        addEventListener("hashchange", this.Router.handler)
     }
 }
 

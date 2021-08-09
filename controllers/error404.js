@@ -1,6 +1,5 @@
-class Error404 extends AutoLoader {
+class Error404 {
     constructor() {
-        super()
         this.useMethod()
     }
 
@@ -12,9 +11,8 @@ class Error404 extends AutoLoader {
     }
 
     updateSlot(content) {
-        document.querySelector('#slot').innerHTML = content
+        document.querySelector("#slot").innerHTML = content
     }
-
 }
 
 new Error404()
