@@ -8,8 +8,6 @@ export const checkParams = ['userId', 'name', 'surName', 'age']
 export const validParams = /[A-Za-zа-яёА-ЯЁ0-9]{1,10}/
 //POSTS CONSTANTS
 export const parseLocalPosts = JSON.parse(localStorage.getItem("posts"))
-//OTHER
-export let sortParam = ''
-export let sortKey = ''
+
 
 

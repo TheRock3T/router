@@ -5,8 +5,6 @@ import {
     regAge,
     regId,
     parseLocalUsers,
-    sortParam,
-    sortKey,
     checkParams
 } from '../utils/constants.js'
 
