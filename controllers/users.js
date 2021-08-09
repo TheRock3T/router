@@ -1,5 +1,15 @@
 import {sortAge} from '../utils/functions.js'
-import {regName, regSurname, regAge, regId, parseLocalUsers, sortParam, sortKey, checkParams} from '../utils/constants.js'
+import {
+    regName,
+    regSurname,
+    regAge,
+    regId,
+    parseLocalUsers,
+    sortParam,
+    sortKey,
+    checkParams
+} from '../utils/constants.js'
+
 class Users {
     constructor() {
         this.autoHTML()
@@ -7,12 +17,12 @@ class Users {
 
     autoHTML() {
         const contentUrl = `./views/users.html`
-            fetch(contentUrl)
-                .then(r => r.text())
-                .then(content => {
-                    this.updateSlot(content)
-                    this.useMethod()
-                })
+        fetch(contentUrl)
+            .then(r => r.text())
+            .then(content => {
+                this.updateSlot(content)
+                this.useMethod()
+            })
     }
 
     updateSlot(content) {
@@ -40,7 +50,6 @@ class Users {
         }
 
         this.filterParams(params)
-
     }
 
     async indexUsers() {
@@ -50,7 +59,6 @@ class Users {
         const parseJsonUsers = JSON.parse(content)
         let newUsers = ''
         let users = ''
-
 
         if (parseLocalUsers !== null) {
             parseLocalUsers.forEach(item => {
@@ -134,7 +142,7 @@ class Users {
                 <h1>Фамилия: ${item.surName}</h1>
                 <h1>Возраст: ${item.age}</h1>   
             </div>
-        `
+                `
                 view.innerHTML = users + newUsers
             })
         } else {
@@ -191,7 +199,12 @@ class Users {
                 }
 
                 const parseLocalUsers = JSON.parse(localStorage.getItem("users"))
-                parseLocalUsers.push({userId:inputId.value, name:inputName.value, surName:inputSurname.value, age: inputAge.value})
+                parseLocalUsers.push({
+                    userId: inputId.value,
+                    name: inputName.value,
+                    surName: inputSurname.value,
+                    age: inputAge.value
+                })
                 localStorage.setItem("users", JSON.stringify(parseLocalUsers));
 
                 alert(`Добавлен новый пользователь:  

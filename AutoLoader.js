@@ -3,6 +3,7 @@ class AutoLoader {
     async handler() {
 
         const [controller, method, ...params] = window.location.hash.substring(2).split('/')
+
         if (controller !== undefined & controller !== "" && window.location.hash !== '#/') {
             const response = await fetch(`./controllers/${controller}.js`)
             let statusLoad = response.status

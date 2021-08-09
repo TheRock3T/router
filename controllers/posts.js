@@ -68,7 +68,7 @@ class Posts {
                 <h1>Заголовок: ${item.title}</h1> 
                 <h1>Текст: ${item.text}</h1>   
             </div>
-        `
+            `
             view.innerHTML = posts + newPosts
         })
     }
@@ -114,8 +114,7 @@ class Posts {
                         <button type="button" id="clickBtn">ADD POST IN DATABASE</button>
                     </form>  
                 </div>
-            `
-
+                `
         this.newPostData()
     }
 
