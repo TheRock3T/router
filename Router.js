@@ -8,17 +8,20 @@ class Router {
 
     handler = () => {
 
-        if (this.Trash.regulars.regSlashWord.test(this.controller) === false && this.Trash.regulars.regWord.test(this.controller) === false) {
+        if (this.Trash.regulars.regSlashWord.test(this.controller) === false
+            && this.Trash.regulars.regWord.test(this.controller) ===   false) {
             window.location.hash = "/error404"
             alert("CONTROLLER NOT FOUND")
         }
 
-        if (this.Trash.regulars.regSlashWord.test(this.method) === false && this.Trash.regulars.regWord.test(this.method) === false) {
+        if (this.Trash.regulars.regSlashWord.test(this.method) === false
+            && this.Trash.regulars.regWord.test(this.method) ===   false) {
             window.location.hash = "/error404"
             alert("METHOD NOT FOUND")
         }
 
-        if (this.controller !== undefined && this.method !== undefined) {
+        if (typeof this.controller !== "undefined"
+            && typeof this.method !==  "undefined") {
 
             if (this.Trash.checks.checkMethod.includes(this.method) === false) {
                 window.location.hash = "/error404"

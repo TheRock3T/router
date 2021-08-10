@@ -1,7 +1,8 @@
 class App {
     constructor() {
-        this.Router = new Router()
+        this.Router =     new Router()
         this.AutoLoader = new AutoLoader()
+
         this.init()
     }
 

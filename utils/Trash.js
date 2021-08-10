@@ -39,7 +39,7 @@ class Trash {
     }
 
     camelCase(method) {
-        if (method !== undefined) {
+        if (typeof method !== "undefined") {
             method = method.replace(/(-.)/g, function (x) {
                 return x[1].toUpperCase()
             })

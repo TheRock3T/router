@@ -1,10 +1,9 @@
-import {sortId, updateSlot} from "../utils/functions.js"
-import {parseLocalPosts} from "../utils/constants.js"
-
-class Posts extends MethodControl {
+class Posts {
     constructor() {
-        super()
-        this.controller = "posts"
+        this.Trash =      new Trash()
+        this.controller = this.Trash.controller
+        this.method =     this.Trash.method
+
         this.autoHTML()
     }
 
@@ -13,22 +12,37 @@ class Posts extends MethodControl {
         fetch(contentUrl)
             .then(r => r.text())
             .then(content => {
-                updateSlot(content)
+                this.Trash.updateSlot(content)
                 this.useMethod()
             })
             .catch(e => alert(e))
     }
 
-    async index() {
-        const response = await fetch("./data/posts.json")
-        const content = await response.text()
-        const parsePosts = JSON.parse(content)
-        const view = document.querySelector("#data")
-        let newPosts = ""
-        let posts = ""
+    useMethod() {
 
-        if (parseLocalPosts !== null) {
-            parseLocalPosts.forEach(item => {
+        if (this.method === "index") {
+            this.index()
+        }
+
+        if (this.method === "sorting") {
+            this.sorting()
+        }
+
+        if (this.method === "add") {
+            this.add()
+        }
+    }
+
+    async index() {
+        const response =   await fetch("./data/posts.json")
+        const content =    await response.text()
+        const parsePosts = JSON.parse(content)
+        const view =       document.querySelector("#data")
+        let newPosts =     ""
+        let posts =        ""
+
+        if (this.Trash.locals.parseLocalPosts !== null) {
+            this.Trash.locals.parseLocalPosts.forEach(item => {
                 newPosts += `
                 <div class="block">
                     <h1>Заголовок: ${item.title}</h1> 
@@ -41,9 +55,9 @@ class Posts extends MethodControl {
         parsePosts.forEach(item => {
             posts += `
             <div class="block">
-                <h1>Номер: ${item.postNum}</h1>
+                <h1>Номер:     ${item.postNum}</h1>
                 <h1>Заголовок: ${item.title}</h1> 
-                <h1>Текст: ${item.text}</h1>   
+                <h1>Текст:     ${item.text}</h1>   
             </div>
             `
             view.innerHTML = posts + newPosts
@@ -51,20 +65,20 @@ class Posts extends MethodControl {
     }
 
     async sorting() {
-        const view = document.querySelector("#data")
-        const response = await fetch("./data/posts.json")
-        const content = await response.text()
+        const view =           document.querySelector("#data")
+        const response =       await fetch("./data/posts.json")
+        const content =        await response.text()
         const parseJsonPosts = JSON.parse(content)
-        let newPosts = ""
-        let users = ""
-        sortId(parseJsonPosts)
+        let newPosts =         ""
+        let users =            ""
+        this.Trash.sortId(parseJsonPosts)
 
-        if (parseLocalPosts !== null) {
-            parseLocalPosts.forEach(item => {
+        if (this.Trash.locals.parseLocalPosts !== null) {
+            this.Trash.locals.parseLocalPosts.forEach(item => {
                 newPosts += `
                 <div class="block">
                     <h1>Заголовок: ${item.title}</h1> 
-                    <h1>Текст: ${item.text}</h1>  
+                    <h1>Текст:     ${item.text}</h1>  
                 </div>
                 `
             })
@@ -73,9 +87,9 @@ class Posts extends MethodControl {
         parseJsonPosts.forEach(item => {
             users += `
         <div class="block">
-            <h1>Номер: ${item.postNum}</h1>
+            <h1>Номер:     ${item.postNum}</h1>
             <h1>Заголовок: ${item.title}</h1> 
-            <h1>Текст: ${item.text}</h1>  
+            <h1>Текст:     ${item.text}</h1>  
         </div>
         `
             view.innerHTML = users + newPosts
@@ -92,9 +106,10 @@ class Posts extends MethodControl {
                     </form>  
                 </div>
                 `
-        let clickBtn = document.getElementById("clickBtn")
-        let inputTitlePost = document.getElementById("titlePost");
-        let inputTextPost = document.getElementById("textPost");
+        let clickBtn =       document.getElementById("clickBtn")
+        let inputTitlePost = document.getElementById("titlePost")
+        let inputTextPost =  document.getElementById("textPost")
+
         clickBtn.addEventListener("click", () => {
 
             if (inputTextPost.value !== "" && inputTitlePost.value !== "") {
@@ -113,7 +128,7 @@ class Posts extends MethodControl {
             }
 
             document.getElementById("titlePost").value = ""
-            document.getElementById("textPost").value = ""
+            document.getElementById("textPost").value =  ""
         })
     }
 }
