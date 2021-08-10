@@ -1,8 +1,8 @@
 class Posts {
     constructor() {
-        this.Trash = new Trash()
-        this.controller = this.Trash.controller
-        this.method = this.Trash.method
+        this.Util = new Util()
+        this.controller = this.Util.controller
+        this.method = this.Util.method
 
         this.autoHTML()
     }
@@ -12,7 +12,7 @@ class Posts {
         fetch(contentUrl)
             .then(r => r.text())
             .then(content => {
-                this.Trash.updateSlot(content)
+                this.Util.updateSlot(content)
                 this.useMethod()
             })
             .catch(e => alert(e))
@@ -41,10 +41,11 @@ class Posts {
         let newPosts = ""
         let posts = ""
 
-        if (this.Trash.locals.parseLocalPosts !== null) {
-            this.Trash.locals.parseLocalPosts.forEach(item => {
+        if (this.Util.locals.parsePosts !== null) {
+            this.Util.locals.parsePosts.forEach(item => {
                 newPosts += `
                 <div class="block">
+                    <h1>Номер:     ${item.postNum}</h1>
                     <h1>Заголовок: ${item.title}</h1> 
                     <h1>Текст: ${item.text}</h1>  
                 </div>
@@ -71,12 +72,13 @@ class Posts {
         const parseJsonPosts = JSON.parse(content)
         let newPosts = ""
         let users = ""
-        this.Trash.sortId(parseJsonPosts)
+        this.Util.sortId(parseJsonPosts)
 
-        if (this.Trash.locals.parseLocalPosts !== null) {
-            this.Trash.locals.parseLocalPosts.forEach(item => {
+        if (this.Util.locals.parsePosts !== null) {
+            this.Util.locals.parsePosts.forEach(item => {
                 newPosts += `
                 <div class="block">
+                    <h1>Номер:     ${item.postNum}</h1>
                     <h1>Заголовок: ${item.title}</h1> 
                     <h1>Текст:     ${item.text}</h1>  
                 </div>
@@ -100,6 +102,7 @@ class Posts {
         document.querySelector("#data").innerHTML = `
                 <div class="block">
                     <form>
+                        <input type="text" id="numPost" name="title" placeholder="POST NUMBER">
                         <input type="text" id="titlePost" name="title" placeholder="TITLE POST">
                         <input type="text" id="textPost" name="text" placeholder="TEXT POST">
                         <button type="button" id="clickBtn">ADD POST IN DATABASE</button>
@@ -107,26 +110,32 @@ class Posts {
                 </div>
                 `
         let clickBtn = document.getElementById("clickBtn")
+        let inputNumPost = document.getElementById("numPost")
         let inputTitlePost = document.getElementById("titlePost")
         let inputTextPost = document.getElementById("textPost")
 
         clickBtn.addEventListener("click", () => {
 
-            if (inputTextPost.value !== "" && inputTitlePost.value !== "") {
+            if (inputTextPost.value !== ""
+                && inputTitlePost.value !== ""
+                && inputNumPost.value !== "") {
 
                 if (JSON.parse(localStorage.getItem("posts")) === null) {
                     localStorage.setItem("posts", "[]")
                 }
 
-                const parseLocalPosts = JSON.parse(localStorage.getItem("posts"))
-                parseLocalPosts.push({title: inputTitlePost.value, text: inputTextPost.value})
-                localStorage.setItem("posts", JSON.stringify(parseLocalPosts));
-                alert(`Добавлен новый пост:  TITLE: ${inputTitlePost.value},  TEXT: ${inputTextPost.value}`)
-
+                const parsePosts = JSON.parse(localStorage.getItem("posts"))
+                parsePosts.push({postNum: inputNumPost.value, title: inputTitlePost.value, text: inputTextPost.value})
+                localStorage.setItem("posts", JSON.stringify(parsePosts));
+                alert(`Добавлен новый пост:  
+                    NUMBER POST: ${inputNumPost.value},
+                    TITLE: ${inputTitlePost.value},
+                    TEXT: ${inputTextPost.value}`)
             } else {
                 alert("Вы не ввели данные, попробуйте хотя бы вписать что-то или придет ОНО!")
             }
 
+            document.getElementById("numPost").value = ""
             document.getElementById("titlePost").value = ""
             document.getElementById("textPost").value = ""
         })

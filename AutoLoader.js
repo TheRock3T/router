@@ -1,8 +1,8 @@
 class AutoLoader {
 
     constructor() {
-        this.Trash = new Trash()
-        this.controller = this.Trash.controller
+        this.Util = new Util()
+        this.controller = this.Util.controller
     }
 
     handler = async () => {

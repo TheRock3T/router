@@ -1,10 +1,9 @@
 class Users {
     constructor() {
-        this.Trash = new Trash()
-        this.controller = "users"
-        this.controller = this.Trash.controller
-        this.method = this.Trash.method
-        this.params = this.Trash.params
+        this.Util = new Util()
+        this.controller = this.Util.controller
+        this.method = this.Util.method
+        this.params = this.Util.params
 
         this.autoHTML()
     }
@@ -14,7 +13,7 @@ class Users {
         fetch(contentUrl)
             .then(r => r.text())
             .then(content => {
-                this.Trash.updateSlot(content)
+                this.Util.updateSlot(content)
                 this.useMethod()
             })
             .catch(e => alert(e))
@@ -43,8 +42,8 @@ class Users {
         let newUsers = ""
         let users = ""
 
-        if (this.Trash.locals.parseLocalUsers !== null) {
-            this.Trash.locals.parseLocalUsers.forEach(item => {
+        if (this.Util.locals.parseUsers !== null) {
+            this.Util.locals.parseUsers.forEach(item => {
                 newUsers += `
                 <div class="block">
                     <h1>ID:      ${item.userId}</h1> 
@@ -78,7 +77,7 @@ class Users {
         let users = ""
 
         this.filterParams(this.params)
-        this.Trash.sortAge(parseJsonUsers)
+        this.Util.sortAge(parseJsonUsers)
 
         const newJsonUser = parseJsonUsers.filter((item) => {
             let sortKey = this.sortKey
@@ -126,7 +125,7 @@ class Users {
                 view.innerHTML = users + newUsers
             })
 
-            if (typeof this.sortParam !== "undefined" && this.Trash.checks.checkParams.includes(this.sortParam) === false) {
+            if (typeof this.sortParam !== "undefined" && this.Util.checks.params.includes(this.sortParam) === false) {
                 alert("Данный параметр не найден, буду выведены все пользователи")
             }
         }
@@ -159,37 +158,37 @@ class Users {
                 && typeof inputSurname.value !== "undefined"
                 && typeof inputId.value !== "undefined"
                 && typeof inputAge.value !== "undefined"
-                && this.Trash.regulars.regName.test(inputName.value) === true
-                && this.Trash.regulars.regSurname.test(inputSurname.value) === true
-                && this.Trash.regulars.regAge.test(inputAge.value) === true
-                && this.Trash.regulars.regId.test(inputId.value) === true) {
+                && this.Util.regulars.name.test(inputName.value) === true
+                && this.Util.regulars.surname.test(inputSurname.value) === true
+                && this.Util.regulars.age.test(inputAge.value) === true
+                && this.Util.regulars.id.test(inputId.value) === true) {
 
                 if (JSON.parse(localStorage.getItem("users")) === null) {
                     localStorage.setItem("users", "[]")
                 }
 
-                const parseLocalUsers = JSON.parse(localStorage.getItem("users"))
-                parseLocalUsers.push({
+                const parseUsers = JSON.parse(localStorage.getItem("users"))
+                parseUsers.push({
                     userId: inputId.value,
                     name: inputName.value,
                     surName: inputSurname.value,
                     age: inputAge.value
                 })
-                localStorage.setItem("users", JSON.stringify(parseLocalUsers));
+                localStorage.setItem("users", JSON.stringify(parseUsers));
 
                 alert(`Добавлен новый пользователь:  
-                NAME:    ${inputName.value},  
+                   NAME: ${inputName.value},  
                 SURNAME: ${inputSurname.value}, 
-                AGE:     ${inputAge.value}, 
-                ID:      ${inputId.value}`)
+                    AGE: ${inputAge.value}, 
+                     ID: ${inputId.value}`)
             } else {
                 alert("Поздравляю ты промазал по клаве и не попал по нужным клавишам, попробуй еще раз!")
             }
 
-            document.getElementById("name").value = ""
+            document.getElementById("name").value    = ""
             document.getElementById("surname").value = ""
-            document.getElementById("age").value = ""
-            document.getElementById("id").value = ""
+            document.getElementById("age").value     = ""
+            document.getElementById("id").value      = ""
         })
     }
 

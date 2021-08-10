@@ -1,24 +1,24 @@
-class Trash {
+class Util {
 
     constructor() {
         this.regulars = {
-            regName: /[a-zA-Zа-яёА-ЯЁ]{4,8}/,
-            regSurname: /[a-zA-Zа-яёА-ЯЁ]{2,15}/,
-            regId: /[0-9]+/,
-            regAge: /[0-9]{1,3}/,
-            regParams: /[A-Za-zа-яёА-ЯЁ0-9]{1,10}/,
-            regSlashWord: /\b[A-Za-z]+(?:-+[A-Za-z]+)+\b/,
-            regWord: /^[A-Za-z]*$/
+            name: /[a-zA-Zа-яёА-ЯЁ]{4,8}/,
+            surname: /[a-zA-Zа-яёА-ЯЁ]{2,15}/,
+            id: /[0-9]+/,
+            age: /[0-9]{1,3}/,
+            params: /[A-Za-zа-яёА-ЯЁ0-9]{1,10}/,
+            slashWord: /\b[A-Za-z]+(?:-+[A-Za-z]+)+\b/,
+            word: /^[A-Za-z]*$/
         }
 
         this.checks = {
-            checkMethod: ["index", "sorting", "add", "add-user"],
-            checkParams: ["userId", "name", "surName", "age"]
+            method: ["index", "sorting", "add", "add-user"],
+            params: ["userId", "name", "surName", "age"]
         }
 
         this.locals = {
-            parseLocalPosts: JSON.parse(localStorage.getItem("posts")),
-            parseLocalUsers: JSON.parse(localStorage.getItem("users"))
+            parsePosts: JSON.parse(localStorage.getItem("posts")),
+            parseUsers: JSON.parse(localStorage.getItem("users"))
         }
 
         const [controller, method, ...params] = window.location.hash.substring(2).split("/")

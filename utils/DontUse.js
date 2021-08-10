@@ -1,7 +1,7 @@
 
 // users.js 150 STR
-// if (parseLocalUsers !== null) {
-//     parseLocalUsers.forEach(item => {
+// if (parseUsers !== null) {
+//     parseUsers.forEach(item => {
 //         newUsers += `
 //                 <div class="block">
 //                     <h1>ID: ${item.userId}</h1>
