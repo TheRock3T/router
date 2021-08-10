@@ -22,11 +22,8 @@ class AutoLoader {
                 scriptElement.async = false;
                 htmlHead.appendChild(scriptElement);
                 console.log(statusLoad)
-
             } else {
-
                 alert(`CONTROLLER      ---> ${this.controller} <---      NOT FOUND`)
-
             }
         }
     }

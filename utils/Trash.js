@@ -14,7 +14,6 @@ class Trash {
         this.checks = {
             checkMethod: ["index", "sorting", "add", "add-user"],
             checkParams: ["userId", "name", "surName", "age"]
-
         }
 
         this.locals = {
@@ -27,7 +26,6 @@ class Trash {
         this.controller = controller
         this.method = method
         this.params = params
-
     }
 
     sortAge(arr, param) {

@@ -190,7 +190,6 @@ class Users {
             document.getElementById("surname").value = ""
             document.getElementById("age").value = ""
             document.getElementById("id").value = ""
-
         })
     }
 
