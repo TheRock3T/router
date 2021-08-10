@@ -1,24 +1,26 @@
-const validSlashWord = /\b[A-Za-z]+(?:-+[A-Za-z]+)+\b/
-const validWord = /^[A-Za-z]*$/
-const checkMethod = ["index", "sorting", "add", "add-user"]
+class Router {
 
-class Router extends MethodControl {
+    constructor() {
+        this.Trash =      new Trash()
+        this.controller = this.Trash.controller
+        this.method =     this.Trash.method
+    }
 
-    handler() {
+    handler = () => {
 
-        if (validSlashWord.test(this.controller) === false && validWord.test(this.controller) === false) {
+        if (this.Trash.regulars.regSlashWord.test(this.controller) === false && this.Trash.regulars.regWord.test(this.controller) === false) {
             window.location.hash = "/error404"
             alert("CONTROLLER NOT FOUND")
         }
 
-        if (validSlashWord.test(this.method) === false && validWord.test(this.method) === false) {
+        if (this.Trash.regulars.regSlashWord.test(this.method) === false && this.Trash.regulars.regWord.test(this.method) === false) {
             window.location.hash = "/error404"
             alert("METHOD NOT FOUND")
         }
 
         if (this.controller !== undefined && this.method !== undefined) {
 
-            if (checkMethod.includes(this.method) === false) {
+            if (this.Trash.checks.checkMethod.includes(this.method) === false) {
                 window.location.hash = "/error404"
             }
         }

@@ -1,15 +1,18 @@
-class AutoLoader extends MethodControl {
+class AutoLoader {
 
-    async handler() {
+    constructor() {
+        this.Trash = new Trash()
+        this.controller = this.Trash.controller
+    }
 
-        const controller = window.location.hash.substring(2).split("/")[0]
+    handler = async () => {
 
-        if (controller !== undefined & controller !== "" && window.location.hash !== "#/") {
-            const response = await fetch(`./controllers/${controller}.js`)
+        if (this.controller !== undefined & this.controller !== "" && window.location.hash !== "#/") {
+            const response = await fetch(`./controllers/${this.controller}.js`)
             let statusLoad = response.status
 
             if (statusLoad === 200 && document.getElementsByTagName("body")[0] !== undefined) {
-                let jsScripts = `./controllers/${controller}.js`
+                let jsScripts = `./controllers/${this.controller}.js`
                 let htmlHead = document.getElementsByTagName("body")[0];
                 let scriptElement = document.createElement("script");
                 scriptElement.type = "module";
@@ -18,7 +21,7 @@ class AutoLoader extends MethodControl {
                 htmlHead.appendChild(scriptElement);
                 console.log(statusLoad)
             } else {
-                alert(`CONTROLLER      ---> ${controller} <---      NOT FOUND`)
+                alert(`CONTROLLER      ---> ${this.controller} <---      NOT FOUND`)
             }
         }
     }

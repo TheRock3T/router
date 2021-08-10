@@ -1,19 +1,11 @@
-import {sortAge, camelCase, updateSlot} from "../utils/functions.js"
-import {
-    regName,
-    regSurname,
-    regAge,
-    regId,
-    parseLocalUsers,
-    checkParams
-} from "../utils/constants.js"
-
-class Users extends MethodControl {
+class Users {
     constructor() {
-        super()
+        this.Trash = new Trash()
         this.controller = "users"
         this.autoHTML()
-        camelCase(this.method)
+        this.controller = this.Trash.controller
+        this.method = this.Trash.method
+        this.params = this.Trash.params
     }
 
     autoHTML() {
@@ -21,10 +13,25 @@ class Users extends MethodControl {
         fetch(contentUrl)
             .then(r => r.text())
             .then(content => {
-                updateSlot(content)
+                this.Trash.updateSlot(content)
                 this.useMethod()
             })
             .catch(e => alert(e))
+    }
+
+    useMethod() {
+
+        if (this.method === "index") {
+            this.index()
+        }
+
+        if (this.method === "sorting") {
+            this.sorting()
+        }
+
+        if (this.method === "add") {
+            this.add()
+        }
     }
 
     async index() {
@@ -35,8 +42,8 @@ class Users extends MethodControl {
         let newUsers = ""
         let users = ""
 
-        if (parseLocalUsers !== null) {
-            parseLocalUsers.forEach(item => {
+        if (this.Trash.locals.parseLocalUsers !== null) {
+            this.Trash.locals.parseLocalUsers.forEach(item => {
                 newUsers += `
                 <div class="block">
                     <h1>ID: ${item.userId}</h1> 
@@ -70,7 +77,7 @@ class Users extends MethodControl {
         let users = ""
 
         this.filterParams(this.params)
-        sortAge(parseJsonUsers)
+        this.Trash.sortAge(parseJsonUsers)
 
         const newJsonUser = parseJsonUsers.filter((item) => {
             let sortKey = this.sortKey
@@ -118,7 +125,7 @@ class Users extends MethodControl {
                 view.innerHTML = users + newUsers
             })
 
-            if (this.sortParam !== undefined && checkParams.includes(this.sortParam) === false) {
+            if (typeof this.sortParam !== "undefined" && checkParams.includes(this.sortParam) === false) {
                 alert("Данный параметр не найден, буду выведены все пользователи")
             }
         }
@@ -151,10 +158,10 @@ class Users extends MethodControl {
                 && inputSurname.value !== undefined
                 && inputId.value !== undefined
                 && inputAge.value !== undefined
-                && regName.test(inputName.value) === true
-                && regSurname.test(inputSurname.value) === true
-                && regAge.test(inputAge.value) === true
-                && regId.test(inputId.value) === true) {
+                && this.Trash.regulars.regName.test(inputName.value) === true
+                && this.Trash.regulars.regSurname.test(inputSurname.value) === true
+                && this.Trash.regulars.regAge.test(inputAge.value) === true
+                && this.Trash.regulars.regId.test(inputId.value) === true) {
 
                 if (JSON.parse(localStorage.getItem("users")) === null) {
                     localStorage.setItem("users", "[]")
