@@ -1,56 +1,39 @@
-import {sort} from '../utils/functions.js'
-import {regName, regSurname, regAge, regId, parseLocalUsers} from '../utils/constants.js'
-class Users {
+import {sortAge, camelCase, updateSlot} from "../utils/functions.js"
+import {
+    regName,
+    regSurname,
+    regAge,
+    regId,
+    parseLocalUsers,
+    checkParams
+} from "../utils/constants.js"
+
+class Users extends MethodControl {
     constructor() {
+        super()
+        this.controller = "users"
         this.autoHTML()
+        camelCase(this.method)
     }
 
     autoHTML() {
-        const contentUrl = `./views/users.html`
-            fetch(contentUrl)
-                .then(r => r.text())
-                .then(content => {
-                    this.updateSlot(content)
-                    this.useMethod()
-                })
+        const contentUrl = `./views/${this.controller}.html`
+        fetch(contentUrl)
+            .then(r => r.text())
+            .then(content => {
+                updateSlot(content)
+                this.useMethod()
+            })
+            .catch(e => alert(e))
     }
 
-    updateSlot(content) {
-        document.querySelector('#slot').innerHTML = content
-    }
-
-    useMethod() {
-        let [controller, method, ...params] = window.location.hash.substring(2).split('/')
-        this.method = method
-
-        if (this.method !== undefined) {
-            this.camelCase()
-        }
-
-        if (this.method === 'indexUsers') {
-            this.indexUsers()
-        }
-
-        if (this.method === 'sortingUsers') {
-            this.sortingUsers()
-        }
-
-        if (this.method === 'addUser') {
-            this.addUser()
-        }
-
-    }
-
-    async indexUsers() {
-        const view = document.querySelector('#data')
-        const response = await fetch('./data/users.json')
+    async index() {
+        const view = document.querySelector("#data")
+        const response = await fetch("./data/users.json")
         const content = await response.text()
         const parseJsonUsers = JSON.parse(content)
-        let newUsers = ''
-        let users = ''
-        // const newJsonUser = parseJsonUsers.filter(function(item){
-        //     return item.userId == 6;
-        // })
+        let newUsers = ""
+        let users = ""
 
         if (parseLocalUsers !== null) {
             parseLocalUsers.forEach(item => {
@@ -62,7 +45,6 @@ class Users {
                     <h1>Возраст: ${item.age}</h1>  
                 </div>
                 `
-                console.log(newUsers)
             })
         }
 
@@ -79,40 +61,53 @@ class Users {
         })
     }
 
-    filterParams(params) {
-        params.forEach((item, index) => {
-            if (index % 2 === 0) {
-                return this.sortParam = item
-            } else {
-                return this.sortKey = item
-            }
-        })
-    }
-
-    async sortingUsers() {
-        const view = document.querySelector('#data')
-        const response = await fetch('./data/users.json')
+    async sorting() {
+        const view = document.querySelector("#data")
+        const response = await fetch("./data/users.json")
         const content = await response.text()
         const parseJsonUsers = JSON.parse(content)
-        let newUsers = ''
-        let users = ''
-        sort(parseJsonUsers)
+        let newUsers = ""
+        let users = ""
 
-        if (parseLocalUsers !== null) {
-            parseLocalUsers.forEach(item => {
-                newUsers += `
-                <div class="block">
-                    <h1>ID: ${item.userId}</h1> 
-                    <h1>Имя: ${item.name}</h1>
-                    <h1>Фамилия: ${item.surName}</h1>
-                    <h1>Возраст: ${item.age}</h1>  
-                </div>
+        this.filterParams(this.params)
+        sortAge(parseJsonUsers)
+
+        const newJsonUser = parseJsonUsers.filter((item) => {
+            let sortKey = this.sortKey
+            let sortParam = this.sortParam
+
+            if (sortParam === "userId") {
+                return item.userId == sortKey;
+            }
+
+            if (sortParam === "name") {
+                return item.name === sortKey;
+            }
+
+            if (sortParam === "surName") {
+                return item.surName === sortKey;
+            }
+
+            if (sortParam === "age") {
+                return item.age == sortKey;
+            }
+        })
+
+        if (newJsonUser.length !== 0) {
+            newJsonUser.forEach(item => {
+                users += `
+            <div class="block">
+                <h1>ID: ${item.userId}</h1>
+                <h1>Имя: ${item.name}</h1> 
+                <h1>Фамилия: ${item.surName}</h1>
+                <h1>Возраст: ${item.age}</h1>   
+            </div>
                 `
+                view.innerHTML = users + newUsers
             })
-        }
-
-        parseJsonUsers.forEach(item => {
-            users += `
+        } else {
+            parseJsonUsers.forEach(item => {
+                users += `
             <div class="block">
                 <h1>ID: ${item.userId}</h1>
                 <h1>Имя: ${item.name}</h1> 
@@ -120,12 +115,17 @@ class Users {
                 <h1>Возраст: ${item.age}</h1>   
             </div>
         `
-            view.innerHTML = users + newUsers
-        })
+                view.innerHTML = users + newUsers
+            })
+
+            if (this.sortParam !== undefined && checkParams.includes(this.sortParam) === false) {
+                alert("Данный параметр не найден, буду выведены все пользователи")
+            }
+        }
     }
 
-    addUser() {
-        document.querySelector('#data').innerHTML = `
+    add() {
+        document.querySelector("#data").innerHTML = `
             <div class="block">
                 <form>
                     <input type="text" pattern="[a-zA-Zа-яёА-ЯЁ]{4,8}" name="nameUser" id="name" placeholder="NAME">
@@ -136,23 +136,21 @@ class Users {
                 </form>  
             </div>
         `
-        this.newUserData()
-    }
-
-    newUserData() {
-        let inputName = document.getElementById("name");
-        let inputSurname = document.getElementById("surname");
-        let inputAge = document.getElementById("age");
-        let inputId = document.getElementById("id");
         let clickBtn = document.getElementById("clickBtn")
-        clickBtn.addEventListener('click', added)
-
-        function added() {
+        clickBtn.addEventListener("click", () => {
+            let inputName = document.getElementById("name");
+            let inputSurname = document.getElementById("surname");
+            let inputAge = document.getElementById("age");
+            let inputId = document.getElementById("id");
 
             if (inputName.value !== ""
-                && inputSurname.value !== ''
-                && inputId.value !== ''
-                && inputAge.value !== ''
+                && inputSurname.value !== ""
+                && inputId.value !== ""
+                && inputAge.value !== ""
+                && inputName.value !== undefined
+                && inputSurname.value !== undefined
+                && inputId.value !== undefined
+                && inputAge.value !== undefined
                 && regName.test(inputName.value) === true
                 && regSurname.test(inputSurname.value) === true
                 && regAge.test(inputAge.value) === true
@@ -162,7 +160,13 @@ class Users {
                     localStorage.setItem("users", "[]")
                 }
 
-                parseLocalUsers.push({userId:inputId.value, name:inputName.value, surName:inputSurname.value, age: inputAge.value})
+                const parseLocalUsers = JSON.parse(localStorage.getItem("users"))
+                parseLocalUsers.push({
+                    userId: inputId.value,
+                    name: inputName.value,
+                    surName: inputSurname.value,
+                    age: inputAge.value
+                })
                 localStorage.setItem("users", JSON.stringify(parseLocalUsers));
 
                 alert(`Добавлен новый пользователь:  
@@ -171,19 +175,24 @@ class Users {
                 AGE: ${inputAge.value}, 
                 ID: ${inputId.value}`)
             } else {
-                alert('Поздравляю ты промазал по клаве и не попал по нужным клавишам, попробуй еще раз!')
+                alert("Поздравляю ты промазал по клаве и не попал по нужным клавишам, попробуй еще раз!")
             }
 
             document.getElementById("name").value = ""
             document.getElementById("surname").value = ""
             document.getElementById("age").value = ""
             document.getElementById("id").value = ""
-        }
+
+        })
     }
 
-    camelCase() {
-        this.method = this.method.replace(/(-.)/g, function (x) {
-            return x[1].toUpperCase()
+    filterParams(params) {
+        params.forEach((item, index) => {
+            if (index % 2 === 0) {
+                this.sortParam = item
+            } else {
+                this.sortKey = item
+            }
         })
     }
 }

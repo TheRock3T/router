@@ -1,54 +1,31 @@
-import {sort} from '../utils/functions.js'
-import {parseLocalPosts} from '../utils/constants.js'
+import {sortId, updateSlot} from "../utils/functions.js"
+import {parseLocalPosts} from "../utils/constants.js"
 
-class Posts {
+class Posts extends MethodControl {
     constructor() {
+        super()
+        this.controller = "posts"
         this.autoHTML()
     }
 
     autoHTML() {
-        const contentUrl = `./views/posts.html`
-
+        const contentUrl = `./views/${this.controller}.html`
         fetch(contentUrl)
             .then(r => r.text())
             .then(content => {
-                this.updateSlot(content)
-                this.useMethodPosts()
+                updateSlot(content)
+                this.useMethod()
             })
+            .catch(e => alert(e))
     }
 
-    updateSlot(content) {
-        document.querySelector('#slot').innerHTML = content
-    }
-
-    useMethodPosts() {
-        let [controller, method, ...params] = window.location.hash.substring(2).split('/')
-        this.method = method
-
-        if (this.method !== undefined) {
-            this.camelCase()
-        }
-
-        if (this.method === 'indexPosts') {
-            this.indexPosts()
-        }
-
-        if (this.method === 'sortingPosts') {
-            this.sortingPosts()
-        }
-
-        if (this.method === 'addPost') {
-            this.addPost()
-        }
-    }
-
-    async indexPosts() {
-        const response = await fetch('./data/posts.json')
+    async index() {
+        const response = await fetch("./data/posts.json")
         const content = await response.text()
         const parsePosts = JSON.parse(content)
-        const view = document.querySelector('#data')
-        let newPosts = ''
-        let posts = ''
+        const view = document.querySelector("#data")
+        let newPosts = ""
+        let posts = ""
 
         if (parseLocalPosts !== null) {
             parseLocalPosts.forEach(item => {
@@ -68,18 +45,19 @@ class Posts {
                 <h1>Заголовок: ${item.title}</h1> 
                 <h1>Текст: ${item.text}</h1>   
             </div>
-        `
+            `
             view.innerHTML = posts + newPosts
         })
     }
 
-    async sortingPosts() {
-        const view = document.querySelector('#data')
-        const response = await fetch('./data/posts.json')
+    async sorting() {
+        const view = document.querySelector("#data")
+        const response = await fetch("./data/posts.json")
         const content = await response.text()
         const parseJsonPosts = JSON.parse(content)
-        let newPosts = ''
-        let users = ''
+        let newPosts = ""
+        let users = ""
+        sortId(parseJsonPosts)
 
         if (parseLocalPosts !== null) {
             parseLocalPosts.forEach(item => {
@@ -92,7 +70,6 @@ class Posts {
             })
         }
 
-        sort(parseJsonPosts)
         parseJsonPosts.forEach(item => {
             users += `
         <div class="block">
@@ -105,8 +82,8 @@ class Posts {
         })
     }
 
-    addPost() {
-        document.querySelector('#data').innerHTML = `
+    add() {
+        document.querySelector("#data").innerHTML = `
                 <div class="block">
                     <form>
                         <input type="text" id="titlePost" name="title" placeholder="TITLE POST">
@@ -114,40 +91,29 @@ class Posts {
                         <button type="button" id="clickBtn">ADD POST IN DATABASE</button>
                     </form>  
                 </div>
-            `
-
-        this.newPostData()
-    }
-
-    newPostData() {
+                `
         let clickBtn = document.getElementById("clickBtn")
         let inputTitlePost = document.getElementById("titlePost");
         let inputTextPost = document.getElementById("textPost");
-        clickBtn.addEventListener('click', added)
+        clickBtn.addEventListener("click", () => {
 
-        function added() {
-            if (inputTextPost.value !== "" && inputTitlePost.value !== '') {
+            if (inputTextPost.value !== "" && inputTitlePost.value !== "") {
 
                 if (JSON.parse(localStorage.getItem("posts")) === null) {
                     localStorage.setItem("posts", "[]")
                 }
 
+                const parseLocalPosts = JSON.parse(localStorage.getItem("posts"))
                 parseLocalPosts.push({title: inputTitlePost.value, text: inputTextPost.value})
                 localStorage.setItem("posts", JSON.stringify(parseLocalPosts));
                 alert(`Добавлен новый пост:  TITLE: ${inputTitlePost.value},  TEXT: ${inputTextPost.value}`)
 
             } else {
-                alert('Вы не ввели данные, попробуйте хотя бы вписать что-то или придет ОНО!')
+                alert("Вы не ввели данные, попробуйте хотя бы вписать что-то или придет ОНО!")
             }
 
             document.getElementById("titlePost").value = ""
             document.getElementById("textPost").value = ""
-        }
-    }
-
-    camelCase() {
-        this.method = this.method.replace(/(-.)/g, function (x) {
-            return x[1].toUpperCase()
         })
     }
 }
