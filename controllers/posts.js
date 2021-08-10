@@ -1,8 +1,8 @@
 class Posts {
     constructor() {
-        this.Trash =      new Trash()
+        this.Trash = new Trash()
         this.controller = this.Trash.controller
-        this.method =     this.Trash.method
+        this.method = this.Trash.method
 
         this.autoHTML()
     }
@@ -34,12 +34,12 @@ class Posts {
     }
 
     async index() {
-        const response =   await fetch("./data/posts.json")
-        const content =    await response.text()
+        const response = await fetch("./data/posts.json")
+        const content = await response.text()
         const parsePosts = JSON.parse(content)
-        const view =       document.querySelector("#data")
-        let newPosts =     ""
-        let posts =        ""
+        const view = document.querySelector("#data")
+        let newPosts = ""
+        let posts = ""
 
         if (this.Trash.locals.parseLocalPosts !== null) {
             this.Trash.locals.parseLocalPosts.forEach(item => {
@@ -65,12 +65,12 @@ class Posts {
     }
 
     async sorting() {
-        const view =           document.querySelector("#data")
-        const response =       await fetch("./data/posts.json")
-        const content =        await response.text()
+        const view = document.querySelector("#data")
+        const response = await fetch("./data/posts.json")
+        const content = await response.text()
         const parseJsonPosts = JSON.parse(content)
-        let newPosts =         ""
-        let users =            ""
+        let newPosts = ""
+        let users = ""
         this.Trash.sortId(parseJsonPosts)
 
         if (this.Trash.locals.parseLocalPosts !== null) {
@@ -106,9 +106,9 @@ class Posts {
                     </form>  
                 </div>
                 `
-        let clickBtn =       document.getElementById("clickBtn")
+        let clickBtn = document.getElementById("clickBtn")
         let inputTitlePost = document.getElementById("titlePost")
-        let inputTextPost =  document.getElementById("textPost")
+        let inputTextPost = document.getElementById("textPost")
 
         clickBtn.addEventListener("click", () => {
 
@@ -128,7 +128,7 @@ class Posts {
             }
 
             document.getElementById("titlePost").value = ""
-            document.getElementById("textPost").value =  ""
+            document.getElementById("textPost").value = ""
         })
     }
 }

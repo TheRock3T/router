@@ -2,13 +2,13 @@ class Trash {
 
     constructor() {
         this.regulars = {
-            regName:        /[a-zA-Zа-яёА-ЯЁ]{4,8}/,
-            regSurname:     /[a-zA-Zа-яёА-ЯЁ]{2,15}/,
-            regId:          /[0-9]+/,
-            regAge:         /[0-9]{1,3}/,
-            regParams:      /[A-Za-zа-яёА-ЯЁ0-9]{1,10}/,
-            regSlashWord:   /\b[A-Za-z]+(?:-+[A-Za-z]+)+\b/,
-            regWord:        /^[A-Za-z]*$/
+            regName: /[a-zA-Zа-яёА-ЯЁ]{4,8}/,
+            regSurname: /[a-zA-Zа-яёА-ЯЁ]{2,15}/,
+            regId: /[0-9]+/,
+            regAge: /[0-9]{1,3}/,
+            regParams: /[A-Za-zа-яёА-ЯЁ0-9]{1,10}/,
+            regSlashWord: /\b[A-Za-z]+(?:-+[A-Za-z]+)+\b/,
+            regWord: /^[A-Za-z]*$/
         }
 
         this.checks = {
@@ -25,8 +25,8 @@ class Trash {
         const [controller, method, ...params] = window.location.hash.substring(2).split("/")
 
         this.controller = controller
-        this.method =     method
-        this.params =     params
+        this.method = method
+        this.params = params
 
     }
 
@@ -51,4 +51,3 @@ class Trash {
         document.querySelector("#slot").innerHTML = content
     }
 }
-

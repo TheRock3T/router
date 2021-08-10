@@ -1,10 +1,10 @@
 class Users {
     constructor() {
-        this.Trash =      new Trash()
+        this.Trash = new Trash()
         this.controller = "users"
         this.controller = this.Trash.controller
-        this.method =     this.Trash.method
-        this.params =     this.Trash.params
+        this.method = this.Trash.method
+        this.params = this.Trash.params
 
         this.autoHTML()
     }
@@ -36,12 +36,12 @@ class Users {
     }
 
     async index() {
-        const view =           document.querySelector("#data")
-        const response =       await fetch("./data/users.json")
-        const content =        await response.text()
+        const view = document.querySelector("#data")
+        const response = await fetch("./data/users.json")
+        const content = await response.text()
         const parseJsonUsers = JSON.parse(content)
-        let newUsers =         ""
-        let users =            ""
+        let newUsers = ""
+        let users = ""
 
         if (this.Trash.locals.parseLocalUsers !== null) {
             this.Trash.locals.parseLocalUsers.forEach(item => {
@@ -70,12 +70,12 @@ class Users {
     }
 
     async sorting() {
-        const view =           document.querySelector("#data")
-        const response =       await fetch("./data/users.json")
-        const content =        await response.text()
+        const view = document.querySelector("#data")
+        const response = await fetch("./data/users.json")
+        const content = await response.text()
         const parseJsonUsers = JSON.parse(content)
-        let newUsers =         ""
-        let users =            ""
+        let newUsers = ""
+        let users = ""
 
         this.filterParams(this.params)
         this.Trash.sortAge(parseJsonUsers)
@@ -146,23 +146,23 @@ class Users {
         `
         let clickBtn = document.getElementById("clickBtn")
         clickBtn.addEventListener("click", () => {
-            let inputName =    document.getElementById("name");
+            let inputName = document.getElementById("name");
             let inputSurname = document.getElementById("surname");
-            let inputAge =     document.getElementById("age");
-            let inputId =      document.getElementById("id");
+            let inputAge = document.getElementById("age");
+            let inputId = document.getElementById("id");
 
-            if (inputName.value !==                                            ""
-                && inputSurname.value !==                                      ""
-                && inputId.value !==                                           ""
-                && inputAge.value !==                                          ""
-                && typeof inputName.value !==                                  "undefined"
-                && typeof inputSurname.value !==                               "undefined"
-                && typeof inputId.value !==                                    "undefined"
-                && typeof inputAge.value !==                                   "undefined"
-                && this.Trash.regulars.regName.test(inputName.value) ===       true
+            if (inputName.value !== ""
+                && inputSurname.value !== ""
+                && inputId.value !== ""
+                && inputAge.value !== ""
+                && typeof inputName.value !== "undefined"
+                && typeof inputSurname.value !== "undefined"
+                && typeof inputId.value !== "undefined"
+                && typeof inputAge.value !== "undefined"
+                && this.Trash.regulars.regName.test(inputName.value) === true
                 && this.Trash.regulars.regSurname.test(inputSurname.value) === true
-                && this.Trash.regulars.regAge.test(inputAge.value) ===         true
-                && this.Trash.regulars.regId.test(inputId.value) ===           true) {
+                && this.Trash.regulars.regAge.test(inputAge.value) === true
+                && this.Trash.regulars.regId.test(inputId.value) === true) {
 
                 if (JSON.parse(localStorage.getItem("users")) === null) {
                     localStorage.setItem("users", "[]")
@@ -170,10 +170,10 @@ class Users {
 
                 const parseLocalUsers = JSON.parse(localStorage.getItem("users"))
                 parseLocalUsers.push({
-                    userId:  inputId.value,
-                    name:    inputName.value,
+                    userId: inputId.value,
+                    name: inputName.value,
                     surName: inputSurname.value,
-                    age:     inputAge.value
+                    age: inputAge.value
                 })
                 localStorage.setItem("users", JSON.stringify(parseLocalUsers));
 
@@ -186,10 +186,10 @@ class Users {
                 alert("Поздравляю ты промазал по клаве и не попал по нужным клавишам, попробуй еще раз!")
             }
 
-            document.getElementById("name").value =    ""
+            document.getElementById("name").value = ""
             document.getElementById("surname").value = ""
-            document.getElementById("age").value =     ""
-            document.getElementById("id").value =      ""
+            document.getElementById("age").value = ""
+            document.getElementById("id").value = ""
 
         })
     }
