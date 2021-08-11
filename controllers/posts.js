@@ -142,4 +142,4 @@ class Posts {
     }
 }
 
-new Posts()
+const callClass = new Posts()

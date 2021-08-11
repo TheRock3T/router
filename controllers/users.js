@@ -203,4 +203,3 @@ class Users {
     }
 }
 
-new Users()

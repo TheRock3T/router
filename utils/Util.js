@@ -37,12 +37,18 @@ class Util {
     }
 
     camelCase(method) {
-        if (typeof method !== "undefined") {
-            method = method.replace(/(-.)/g, function (x) {
-                return x[1].toUpperCase()
-            })
-            return method
-        }
+        method = method.replace(/(-.)/g, function (x) {
+            return x[1].toUpperCase()
+        })
+        return method
+
+    }
+
+    upperWord(word) {
+        word = word.replace(/[a-z]/, function (x) {
+            return x.toUpperCase()
+        })
+        return word
     }
 
     updateSlot(content) {
