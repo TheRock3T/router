@@ -12,7 +12,8 @@ class Util {
         }
 
         this.checks = {
-            method: ["index", "sorting", "add", "add-user"],
+            controller: ["users", "posts", "error404"],
+            method: ["index", "sorting", "add"],
             params: ["userId", "name", "surName", "age"]
         }
 
@@ -53,5 +54,15 @@ class Util {
 
     updateSlot(content) {
         document.querySelector("#slot").innerHTML = content
+    }
+
+    filterParams(params) {
+        params.forEach((item, index) => {
+            if (index % 2 === 0) {
+                this.sortParam = item
+            } else {
+                this.sortKey = item
+            }
+        })
     }
 }

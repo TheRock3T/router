@@ -1,15 +1,14 @@
+const methods = ["index", "sorting", "add"]
+
 class Users {
+
     constructor() {
         this.Util = new Util()
-        this.controller = this.Util.controller
-        this.method = this.Util.method
-        this.params = this.Util.params
-
         this.autoHTML()
     }
 
     autoHTML() {
-        const contentUrl = `./views/${this.controller}.html`
+        const contentUrl = `./views/${this.Util.controller}.html`
         fetch(contentUrl)
             .then(r => r.text())
             .then(content => {
@@ -21,15 +20,15 @@ class Users {
 
     useMethod() {
 
-        if (this.method === "index") {
+        if (this.Util.method === "index") {
             this.index()
         }
 
-        if (this.method === "sorting") {
+        if (this.Util.method === "sorting") {
             this.sorting()
         }
 
-        if (this.method === "add") {
+        if (this.Util.method === "add") {
             this.add()
         }
     }
@@ -76,12 +75,12 @@ class Users {
         let newUsers = ""
         let users = ""
 
-        this.filterParams(this.params)
+        this.Util.filterParams(this.Util.params)
         this.Util.sortAge(parseJsonUsers)
 
         const newJsonUser = parseJsonUsers.filter((item) => {
-            let sortKey = this.sortKey
-            let sortParam = this.sortParam
+            let sortKey = this.Util.sortKey
+            let sortParam = this.Util.sortParam
 
             if (sortParam === "userId") {
                 return item.userId == sortKey;
@@ -125,8 +124,8 @@ class Users {
                 view.innerHTML = users + newUsers
             })
 
-            if (typeof this.sortParam !== "undefined" && this.Util.checks.params.includes(this.sortParam) === false) {
-                alert("Данный параметр не найден, буду выведены все пользователи")
+            if (typeof this.Util.sortParam !== "undefined" && this.Util.checks.params.includes(this.Util.sortParam) === false) {
+                alert("Данный параметр не найден, будут выведены все пользователи")
             }
         }
     }
@@ -185,21 +184,10 @@ class Users {
                 alert("Поздравляю ты промазал по клаве и не попал по нужным клавишам, попробуй еще раз!")
             }
 
-            document.getElementById("name").value    = ""
+            document.getElementById("name").value = ""
             document.getElementById("surname").value = ""
-            document.getElementById("age").value     = ""
-            document.getElementById("id").value      = ""
-        })
-    }
-
-    filterParams(params) {
-        params.forEach((item, index) => {
-            if (index % 2 === 0) {
-                this.sortParam = item
-            } else {
-                this.sortKey = item
-            }
+            document.getElementById("age").value = ""
+            document.getElementById("id").value = ""
         })
     }
 }
-

@@ -1,14 +1,14 @@
+const methods = ["index", "sorting", "add"]
+
 class Posts {
+
     constructor() {
         this.Util = new Util()
-        this.controller = this.Util.controller
-        this.method = this.Util.method
-
         this.autoHTML()
     }
 
     autoHTML() {
-        const contentUrl = `./views/${this.controller}.html`
+        const contentUrl = `./views/${this.Util.controller}.html`
         fetch(contentUrl)
             .then(r => r.text())
             .then(content => {
@@ -20,15 +20,15 @@ class Posts {
 
     useMethod() {
 
-        if (this.method === "index") {
+        if (this.Util.method === "index") {
             this.index()
         }
 
-        if (this.method === "sorting") {
+        if (this.Util.method === "sorting") {
             this.sorting()
         }
 
-        if (this.method === "add") {
+        if (this.Util.method === "add") {
             this.add()
         }
     }
@@ -72,6 +72,7 @@ class Posts {
         const parseJsonPosts = JSON.parse(content)
         let newPosts = ""
         let users = ""
+
         this.Util.sortId(parseJsonPosts)
 
         if (this.Util.locals.parsePosts !== null) {
@@ -121,7 +122,7 @@ class Posts {
                 && inputNumPost.value !== "") {
 
                 if (JSON.parse(localStorage.getItem("posts")) === null) {
-                    localStorage.setItem("posts", "[]")
+                    localStorage.setItem("posts", `[]`)
                 }
 
                 const parsePosts = JSON.parse(localStorage.getItem("posts"))
@@ -141,5 +142,3 @@ class Posts {
         })
     }
 }
-
-const callClass = new Posts()
