@@ -21,11 +21,15 @@ class AutoLoader {
 
                 const checkcontroller = await fetch(`./controllers/${this.Util.controller}.js`)
                     .then(() => {
-                        eval("new " + this.className)
+                        this.connectClass()
                     })
             } else {
                 alert(`CONTROLLER      ---> ${this.Util.controller} <---      NOT FOUND`)
             }
         }
+    }
+
+    connectClass() {
+        eval("new " + this.className)
     }
 }
