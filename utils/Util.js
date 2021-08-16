@@ -42,7 +42,6 @@ class Util {
             return x[1].toUpperCase()
         })
         return method
-
     }
 
     upperWord(word) {
