@@ -3,16 +3,15 @@ const methods = ["index", "sorting", "add"]
 class Users {
 
     constructor() {
-        this.Util = new Util()
         this.autoHTML()
     }
 
     autoHTML() {
-        const contentUrl = `./views/${this.Util.controller}.html`
+        const contentUrl = `./views/${util.controller}.html`
         fetch(contentUrl)
             .then(r => r.text())
             .then(content => {
-                this.Util.updateSlot(content)
+                util.updateSlot(content)
                 this.useMethod()
             })
             .catch(e => alert(e))
@@ -20,15 +19,15 @@ class Users {
 
     useMethod() {
 
-        if (this.Util.method === "index") {
+        if (util.method === "index") {
             this.index()
         }
 
-        if (this.Util.method === "sorting") {
+        if (util.method === "sorting") {
             this.sorting()
         }
 
-        if (this.Util.method === "add") {
+        if (util.method === "add") {
             this.add()
         }
     }
@@ -41,8 +40,8 @@ class Users {
         let newUsers = ""
         let users = ""
 
-        if (this.Util.locals.parseUsers !== null) {
-            this.Util.locals.parseUsers.forEach(item => {
+        if (util.locals.parseUsers !== null) {
+            util.locals.parseUsers.forEach(item => {
                 newUsers += `
                 <div class="block">
                     <h1>ID:      ${item.userId}</h1> 
@@ -75,12 +74,12 @@ class Users {
         let newUsers = ""
         let users = ""
 
-        this.Util.filterParams(this.Util.params)
-        this.Util.sortAge(parseJsonUsers)
+        util.filterParams(util.params)
+        util.sortAge(parseJsonUsers)
 
         const newJsonUser = parseJsonUsers.filter((item) => {
-            let sortKey = this.Util.sortKey
-            let sortParam = this.Util.sortParam
+            let sortKey = util.sortKey
+            let sortParam = util.sortParam
 
             if (sortParam === "userId") {
                 return item.userId == sortKey;
@@ -124,7 +123,7 @@ class Users {
                 view.innerHTML = users + newUsers
             })
 
-            if (typeof this.Util.sortParam !== "undefined" && this.Util.checks.params.includes(this.Util.sortParam) === false) {
+            if (typeof util.sortParam !== "undefined" && util.checks.params.includes(util.sortParam) === false) {
                 alert("Данный параметр не найден, будут выведены все пользователи")
             }
         }
@@ -157,10 +156,10 @@ class Users {
                 && typeof inputSurname.value !== "undefined"
                 && typeof inputId.value !== "undefined"
                 && typeof inputAge.value !== "undefined"
-                && this.Util.regulars.name.test(inputName.value) === true
-                && this.Util.regulars.surname.test(inputSurname.value) === true
-                && this.Util.regulars.age.test(inputAge.value) === true
-                && this.Util.regulars.id.test(inputId.value) === true) {
+                && util.regulars.name.test(inputName.value) === true
+                && util.regulars.surname.test(inputSurname.value) === true
+                && util.regulars.age.test(inputAge.value) === true
+                && util.regulars.id.test(inputId.value) === true) {
 
                 if (JSON.parse(localStorage.getItem("users")) === null) {
                     localStorage.setItem("users", "[]")

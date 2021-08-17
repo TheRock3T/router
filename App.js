@@ -1,15 +1,10 @@
-class App {
+let util = new Util()
+let router = new Router()
+let autoLoader = new AutoLoader()
 
-    constructor() {
-        this.Router = new Router()
-        this.AutoLoader = new AutoLoader()
-        this.init()
-    }
+addEventListener("load", autoLoader.handler)
+addEventListener("hashchange", router.handler)
 
-    init() {
-        addEventListener("load", this.AutoLoader.handler)
-        addEventListener("hashchange", this.Router.handler)
-    }
-}
 
-new App()
+
+

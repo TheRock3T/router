@@ -1,27 +1,23 @@
 class Router {
 
-    constructor() {
-        this.Util = new Util()
-    }
-
     handler = () => {
 
-        if (this.Util.regulars.slashWord.test(this.Util.controller) === false
-            && this.Util.regulars.word.test(this.Util.controller) === false) {
+        if (util.regulars.slashWord.test(util.controller) === false
+            && util.regulars.word.test(util.controller) === false) {
             window.location.hash = "/error404"
             alert("CONTROLLER NOT FOUND")
         }
 
-        if (this.Util.regulars.slashWord.test(this.Util.method) === false
-            && this.Util.regulars.word.test(this.Util.method) === false) {
+        if (util.regulars.slashWord.test(util.method) === false
+            && util.regulars.word.test(util.method) === false) {
             window.location.hash = "/error404"
             alert("METHOD NOT FOUND")
         }
 
-        if (typeof this.Util.controller !== "undefined"
-            && typeof this.Util.method !== "undefined") {
+        if (typeof util.controller !== "undefined"
+            && typeof util.method !== "undefined") {
 
-            if (this.Util.checks.method.includes(this.Util.method) === false) {
+            if (util.checks.method.includes(util.method) === false) {
                 window.location.hash = "/error404"
             }
         }

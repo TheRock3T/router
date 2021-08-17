@@ -1,7 +1,7 @@
 class Error404 {
 
     constructor() {
-        this.Util = new Util()
+        util = new Util()
         this.useMethod()
     }
 
@@ -9,6 +9,6 @@ class Error404 {
         const contentUrl = `./views/error404.html`
         fetch(contentUrl)
             .then(r => r.text())
-            .then(content => this.Util.updateSlot(content))
+            .then(content => util.updateSlot(content))
     }
 }

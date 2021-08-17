@@ -3,16 +3,15 @@ const methods = ["index", "sorting", "add"]
 class Posts {
 
     constructor() {
-        this.Util = new Util()
         this.autoHTML()
     }
 
     autoHTML() {
-        const contentUrl = `./views/${this.Util.controller}.html`
+        const contentUrl = `./views/${util.controller}.html`
         fetch(contentUrl)
             .then(r => r.text())
             .then(content => {
-                this.Util.updateSlot(content)
+                util.updateSlot(content)
                 this.useMethod()
             })
             .catch(e => alert(e))
@@ -20,15 +19,15 @@ class Posts {
 
     useMethod() {
 
-        if (this.Util.method === "index") {
+        if (util.method === "index") {
             this.index()
         }
 
-        if (this.Util.method === "sorting") {
+        if (util.method === "sorting") {
             this.sorting()
         }
 
-        if (this.Util.method === "add") {
+        if (util.method === "add") {
             this.add()
         }
     }
@@ -41,8 +40,8 @@ class Posts {
         let newPosts = ""
         let posts = ""
 
-        if (this.Util.locals.parsePosts !== null) {
-            this.Util.locals.parsePosts.forEach(item => {
+        if (util.locals.parsePosts !== null) {
+            util.locals.parsePosts.forEach(item => {
                 newPosts += `
                 <div class="block">
                     <h1>Номер:     ${item.postNum}</h1>
@@ -73,10 +72,10 @@ class Posts {
         let newPosts = ""
         let users = ""
 
-        this.Util.sortId(parseJsonPosts)
+        util.sortId(parseJsonPosts)
 
-        if (this.Util.locals.parsePosts !== null) {
-            this.Util.locals.parsePosts.forEach(item => {
+        if (util.locals.parsePosts !== null) {
+            util.locals.parsePosts.forEach(item => {
                 newPosts += `
                 <div class="block">
                     <h1>Номер:     ${item.postNum}</h1>

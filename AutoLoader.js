@@ -1,35 +1,25 @@
 class AutoLoader {
 
-    constructor() {
-        this.Util = new Util()
-        this.className = this.Util.upperWord(this.Util.controller)
-    }
-
-    handler = async () => {
-        if (typeof this.Util.controller !== "undefined"
-            && this.Util.controller !== ""
+    handler = () => {
+        if (typeof util.controller !== "undefined"
+            && util.controller !== ""
             && window.location.hash !== "#/") {
-            let statusController = this.Util.checks.controller.includes(this.Util.controller)
+            let statusController = util.checks.controller.includes(util.controller)
 
             if (statusController === true
                 && typeof document.getElementsByTagName("body")[0] !== "undefined") {
-                let jsScripts = `./controllers/${this.Util.controller}.js`
-                let htmlHead = document.getElementsByTagName("body")[0];
-                let scriptElement = document.createElement("script");
-                scriptElement.src = jsScripts;
-                htmlHead.appendChild(scriptElement)
-
-                const checkcontroller = await fetch(`./controllers/${this.Util.controller}.js`)
-                    .then(() => {
-                        this.connectClass()
-                    })
+                this.className = util.upperWord(util.controller)
+                let script = document.createElement('script');
+                script.src = `/controllers/${util.controller}.js`;
+                script.async = false;
+                document.body.append(script);
+                let connect = document.createElement('script');
+                connect.src = "./utils/connectClass/connectClass.js";
+                connect.async = false;
+                document.body.append(connect);
             } else {
-                alert(`CONTROLLER      ---> ${this.Util.controller} <---      NOT FOUND`)
+                alert(`CONTROLLER      ---> ${util.controller} <---      NOT FOUND`)
             }
         }
-    }
-
-    connectClass() {
-        eval("new " + this.className)
     }
 }
