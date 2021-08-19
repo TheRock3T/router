@@ -13,7 +13,6 @@ class Util {
 
         this.checks = {
             controller: ["users", "posts", "error404"],
-            method: ["index", "sorting", "add"],
             params: ["userId", "name", "surName", "age"]
         }
 
@@ -22,14 +21,13 @@ class Util {
             parseUsers: JSON.parse(localStorage.getItem("users"))
         }
 
-        const [controller, method, ...params] = window.location.hash.substring(2).split("/")
-
-        this.controller = controller
-        this.method = method
-        this.params = params
+        this.defaultValue = {
+            statusFile: "NO_CONNECT",
+            statusError: false
+        }
     }
 
-    sortAge(arr, param) {
+    sortAge(arr) {
         arr.sort((a, b) => a.age > b.age ? 1 : -1);
     }
 
@@ -37,18 +35,10 @@ class Util {
         arr.sort((a, b) => a.postNum > b.postNum ? 1 : -1);
     }
 
-    camelCase(method) {
-        method = method.replace(/(-.)/g, function (x) {
-            return x[1].toUpperCase()
-        })
-        return method
-    }
-
     upperWord(word) {
-        word = word.replace(/[a-z]/, function (x) {
+        return word.replace(/[a-z]/, function (x) {
             return x.toUpperCase()
         })
-        return word
     }
 
     updateSlot(content) {

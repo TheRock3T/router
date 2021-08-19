@@ -7,7 +7,7 @@ class Posts {
     }
 
     autoHTML() {
-        const contentUrl = `./views/${util.controller}.html`
+        const contentUrl = `./views/${controller}.html`
         fetch(contentUrl)
             .then(r => r.text())
             .then(content => {
@@ -19,15 +19,15 @@ class Posts {
 
     useMethod() {
 
-        if (util.method === "index") {
+        if (method === "index") {
             this.index()
         }
 
-        if (util.method === "sorting") {
+        if (method === "sorting") {
             this.sorting()
         }
 
-        if (util.method === "add") {
+        if (method === "add") {
             this.add()
         }
     }

@@ -1,14 +1,16 @@
 class Error404 {
 
     constructor() {
-        util = new Util()
-        this.useMethod()
+        this.autoHTML()
     }
 
-    useMethod() {
-        const contentUrl = `./views/error404.html`
+    autoHTML() {
+        const contentUrl = `./views/${controller}.html`
         fetch(contentUrl)
             .then(r => r.text())
-            .then(content => util.updateSlot(content))
+            .then(content => {
+                util.updateSlot(content)
+            })
+            .catch(e => alert(e))
     }
 }
