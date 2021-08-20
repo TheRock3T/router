@@ -78,4 +78,10 @@ class Util {
             classMethod.add()
         }
     }
+
+    async parse() {
+        const response = await fetch(`./data/${controller}.json`)
+        const content = await response.text()
+        this.parseData = JSON.parse(content)
+    }
 }
