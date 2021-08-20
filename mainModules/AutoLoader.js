@@ -14,7 +14,7 @@ class AutoLoader {
                 document.body.append(script)
 
                 let connect = document.createElement("script")
-                connect.src = "./utils/connect/connectClasses.js"
+                connect.src = "./utils/connect/connectClass.js"
                 connect.async = false
                 document.body.append(connect)
             } else {
