@@ -1,4 +1,5 @@
 const methods = ["index", "sorting", "add"]
+const classController = "posts"
 
 class Posts {
     constructor() {

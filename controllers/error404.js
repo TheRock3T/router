@@ -1,3 +1,5 @@
+const classController = "error404"
+
 class Error404 {
     constructor() {
         util.autoHTML(this)
