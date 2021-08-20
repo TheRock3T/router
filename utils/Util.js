@@ -6,7 +6,6 @@ class Util {
             surname: /[a-zA-Zа-яёА-ЯЁ]{2,15}/,
             id: /[0-9]+/,
             age: /[0-9]{1,3}/,
-            params: /[A-Za-zа-яёА-ЯЁ0-9]{1,10}/,
             slashWord: /\b[A-Za-z]+(?:-+[A-Za-z]+)+\b/,
             word: /^[A-Za-z]*$/
         }
@@ -53,5 +52,30 @@ class Util {
                 this.sortKey = item
             }
         })
+    }
+
+    autoHTML(classMethod) {
+        const contentUrl = `./views/${controller}.html`
+        fetch(contentUrl)
+            .then(r => r.text())
+            .then(content => {
+                this.updateSlot(content)
+                this.useMethod(classMethod)
+            })
+            .catch(e => alert(e))
+    }
+
+    useMethod(classMethod) {
+        if (method === "index") {
+            classMethod.index()
+        }
+
+        if (method === "sorting") {
+            classMethod.sorting()
+        }
+
+        if (method === "add") {
+            classMethod.add()
+        }
     }
 }

@@ -3,33 +3,7 @@ const methods = ["index", "sorting", "add"]
 class Users {
 
     constructor() {
-        this.autoHTML()
-    }
-
-    autoHTML() {
-        const contentUrl = `./views/${controller}.html`
-        fetch(contentUrl)
-            .then(r => r.text())
-            .then(content => {
-                util.updateSlot(content)
-                this.useMethod()
-            })
-            .catch(e => alert(e))
-    }
-
-    useMethod() {
-
-        if (method === "index") {
-            this.index()
-        }
-
-        if (method === "sorting") {
-            this.sorting()
-        }
-
-        if (method === "add") {
-            this.add()
-        }
+        util.autoHTML(this)
     }
 
     async index() {
@@ -190,4 +164,3 @@ class Users {
         })
     }
 }
-

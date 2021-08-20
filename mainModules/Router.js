@@ -18,4 +18,3 @@ class Router {
         window.location.reload(true)
     }
 }
-

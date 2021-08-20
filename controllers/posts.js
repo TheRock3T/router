@@ -3,33 +3,7 @@ const methods = ["index", "sorting", "add"]
 class Posts {
 
     constructor() {
-        this.autoHTML()
-    }
-
-    autoHTML() {
-        const contentUrl = `./views/${controller}.html`
-        fetch(contentUrl)
-            .then(r => r.text())
-            .then(content => {
-                util.updateSlot(content)
-                this.useMethod()
-            })
-            .catch(e => alert(e))
-    }
-
-    useMethod() {
-
-        if (method === "index") {
-            this.index()
-        }
-
-        if (method === "sorting") {
-            this.sorting()
-        }
-
-        if (method === "add") {
-            this.add()
-        }
+        util.autoHTML(this)
     }
 
     async index() {
@@ -132,7 +106,7 @@ class Posts {
                     TITLE: ${inputTitlePost.value},
                     TEXT: ${inputTextPost.value}`)
             } else {
-                alert("Вы не ввели данные, попробуйте хотя бы вписать что-то или придет ОНО!")
+                alert("Вы не ввели данные, попробуйте ввести данные еще раз!")
             }
 
             document.getElementById("numPost").value = ""
