@@ -1,5 +1,10 @@
-const methods = ["index", "sorting", "add"]
+const classMethods = ["index", "sorting", "add"]
 const classController = "posts"
+const classRegulars = {
+    number: /[0-9]+/,
+    title: /[a-zA-Zа-яёА-ЯЁ]{1,25}/,
+    text: /[a-zA-Zа-яёА-ЯЁ]+/,
+}
 
 class Posts {
     constructor() {
@@ -9,73 +14,49 @@ class Posts {
     async index() {
         const view = document.querySelector("#data")
         let newPosts = ""
-        let posts = ""
-
         await util.parse()
 
-        if (util.locals.parsePosts !== null) {
-            util.locals.parsePosts.forEach(item => {
+        if (util.locals.parse !== null) {
+            util.locals.parse.forEach(item => {
                 newPosts += `
                 <div class="block">
-                    <h1>Номер:     ${item.postNum}</h1>
+                    <h1>Номер: ${item.postNum}</h1>
                     <h1>Заголовок: ${item.title}</h1> 
                     <h1>Текст: ${item.text}</h1>  
                 </div>
                 `
+                view.innerHTML = newPosts
             })
         }
-
-        util.parseData.forEach(item => {
-            posts += `
-            <div class="block">
-                <h1>Номер:     ${item.postNum}</h1>
-                <h1>Заголовок: ${item.title}</h1> 
-                <h1>Текст:     ${item.text}</h1>   
-            </div>
-            `
-            view.innerHTML = posts + newPosts
-        })
     }
 
     async sorting() {
         const view = document.querySelector("#data")
         let newPosts = ""
-        let users = ""
 
         await util.parse()
-        util.sortId(util.parseData)
 
-        if (util.locals.parsePosts !== null) {
-            util.locals.parsePosts.forEach(item => {
+        if (util.locals.parse !== null) {
+            util.locals.parse.forEach(item => {
                 newPosts += `
                 <div class="block">
-                    <h1>Номер:     ${item.postNum}</h1>
+                    <h1>Номер: ${item.postNum}</h1>
                     <h1>Заголовок: ${item.title}</h1> 
-                    <h1>Текст:     ${item.text}</h1>  
+                    <h1>Текст: ${item.text}</h1>  
                 </div>
                 `
+                view.innerHTML = newPosts
             })
         }
-
-        util.parseData.forEach(item => {
-            users += `
-        <div class="block">
-            <h1>Номер:     ${item.postNum}</h1>
-            <h1>Заголовок: ${item.title}</h1> 
-            <h1>Текст:     ${item.text}</h1>  
-        </div>
-        `
-            view.innerHTML = users + newPosts
-        })
     }
 
     add() {
-        document.querySelector("#data").innerHTML = `
+        document.querySelector("#data").innerHTML = ` 
                 <div class="block">
-                    <form>
-                        <input type="text" id="numPost" name="title" placeholder="POST NUMBER">
-                        <input type="text" id="titlePost" name="title" placeholder="TITLE POST">
-                        <input type="text" id="textPost" name="text" placeholder="TEXT POST">
+                    <form id="myForm">
+                        <input type="text" pattern="[0-9]+"   id="numPost" name="title" placeholder="POST NUMBER">
+                        <input type="text" pattern="[a-zA-Zа-яёА-ЯЁ]{1,25}"  id="titlePost" name="title" placeholder="TITLE POST">
+                        <input type="text" pattern="[a-zA-Zа-яёА-ЯЁ]+"  id="textPost" name="text" placeholder="TEXT POST">
                         <button type="button" id="clickBtn">ADD POST IN DATABASE</button>
                     </form>  
                 </div>
@@ -85,15 +66,19 @@ class Posts {
         let inputTitlePost = document.getElementById("titlePost")
         let inputTextPost = document.getElementById("textPost")
 
-        clickBtn.addEventListener("click", () => {
+        clickBtn.addEventListener("click", async () => {
 
             if (inputTextPost.value !== ""
                 && inputTitlePost.value !== ""
-                && inputNumPost.value !== "") {
+                && inputNumPost.value !== ""
+                && typeof inputNumPost.value !== "undefined"
+                && typeof inputTitlePost.value !== "undefined"
+                && typeof inputTextPost.value !== "undefined"
+                && classRegulars.number.test(inputNumPost.value) === true
+                && classRegulars.title.test(inputTitlePost.value) === true
+                && classRegulars.text.test(inputTextPost.value) === true) {
 
-                if (JSON.parse(localStorage.getItem("posts")) === null) {
-                    localStorage.setItem("posts", `[]`)
-                }
+                await util.parse()
 
                 const parsePosts = JSON.parse(localStorage.getItem("posts"))
                 parsePosts.push({postNum: inputNumPost.value, title: inputTitlePost.value, text: inputTextPost.value})
@@ -106,9 +91,7 @@ class Posts {
                 alert("Вы не ввели данные, попробуйте ввести данные еще раз!")
             }
 
-            document.getElementById("numPost").value = ""
-            document.getElementById("titlePost").value = ""
-            document.getElementById("textPost").value = ""
+            document.getElementById('myForm').reset()
         })
     }
 }

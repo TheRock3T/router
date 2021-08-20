@@ -1,31 +1,18 @@
 class Util {
     constructor() {
         this.regulars = {
-            name: /[a-zA-Zа-яёА-ЯЁ]{4,8}/,
-            surname: /[a-zA-Zа-яёА-ЯЁ]{2,15}/,
-            id: /[0-9]+/,
-            age: /[0-9]{1,3}/,
             slashWord: /\b[A-Za-z]+(?:-+[A-Za-z]+)+\b/,
             word: /^[A-Za-z]*$/
         }
 
         this.locals = {
-            parsePosts: JSON.parse(localStorage.getItem("posts")),
-            parseUsers: JSON.parse(localStorage.getItem("users"))
+            parse: JSON.parse(localStorage.getItem(`${controller}`)),
         }
 
         this.defaultValue = {
             statusFile: "NO_CONNECT",
             statusError: false
         }
-    }
-
-    sortAge(arr) {
-        arr.sort((a, b) => a.age > b.age ? 1 : -1);
-    }
-
-    sortId(arr) {
-        arr.sort((a, b) => a.postNum > b.postNum ? 1 : -1);
     }
 
     upperWord(word) {
@@ -75,7 +62,11 @@ class Util {
 
     async parse() {
         const response = await fetch(`./data/${controller}.json`)
-        const content = await response.text()
-        this.parseData = JSON.parse(content)
+        this.parseData = await response.text()
+
+        if (JSON.parse(localStorage.getItem(`${controller}`)) === null) {
+            console.log(util.parseData)
+            localStorage.setItem(`${controller}`, `${util.parseData}`)
+        }
     }
 }
