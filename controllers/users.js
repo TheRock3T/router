@@ -115,6 +115,7 @@ class Users {
                 </form>  
             </div>
         `
+
         let clickBtn = document.getElementById("clickBtn")
         clickBtn.addEventListener("click", () => {
             let inputName = document.getElementById("name");

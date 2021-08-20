@@ -1,16 +1,12 @@
 class Error404 {
 
     constructor() {
-        this.autoHTML()
+        util.autoHTML(this)
+        this.hideNavs()
     }
 
-    autoHTML() {
-        const contentUrl = `./views/${controller}.html`
-        fetch(contentUrl)
-            .then(r => r.text())
-            .then(content => {
-                util.updateSlot(content)
-            })
-            .catch(e => alert(e))
+    hideNavs() {
+        const hide = document.getElementById('navs')
+        hide.style.display = "none"
     }
 }
