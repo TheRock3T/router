@@ -9,10 +9,6 @@ class Util {
             word: /^[A-Za-z]*$/
         }
 
-        this.checks = {
-            params: ["userId", "name", "surName", "age"]
-        }
-
         this.locals = {
             parsePosts: JSON.parse(localStorage.getItem("posts")),
             parseUsers: JSON.parse(localStorage.getItem("users"))

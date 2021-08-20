@@ -1,5 +1,6 @@
 const methods = ["index", "sorting", "add"]
 const classController = "users"
+const classParams = ["userId", "name", "surName", "age"]
 
 class Users {
     constructor() {
@@ -94,7 +95,7 @@ class Users {
                 view.innerHTML = users + newUsers
             })
 
-            if (typeof util.sortParam !== "undefined" && util.checks.params.includes(util.sortParam) === false) {
+            if (typeof util.sortParam !== "undefined" && classParams.includes(util.sortParam) === false) {
                 alert("Данный параметр не найден, будут выведены все пользователи")
             }
         }
