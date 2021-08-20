@@ -1,13 +1,12 @@
 class AutoLoader {
-    handler = () => {
+    handler = async () => {
 
         if (typeof controller !== "undefined"
             && controller !== ""
             && window.location.hash !== "#/") {
-            let statusController = util.checks.controller.includes(controller)
+            const response = await fetch(`../controllers/${controller}.js`)
 
-            if (statusController === true
-                && typeof document.getElementsByTagName("body")[0] !== "undefined") {
+            if (response.status === 200 && typeof document.getElementsByTagName("body")[0] !== "undefined") {
                 this.className = util.upperWord(controller)
                 let script = document.createElement("script")
                 script.src = `/controllers/${controller}.js`
