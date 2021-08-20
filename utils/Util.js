@@ -10,7 +10,6 @@ class Util {
         }
 
         this.checks = {
-            controller: ["users", "posts", "error404"],
             params: ["userId", "name", "surName", "age"]
         }
 
