@@ -1,5 +1,4 @@
 class AutoLoader {
-
     handler = () => {
 
         if (typeof controller !== "undefined"

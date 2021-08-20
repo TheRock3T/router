@@ -1,5 +1,4 @@
 class Router {
-
     handler = () => {
 
         if (util.defaultValue.statusError === true) {

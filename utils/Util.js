@@ -1,5 +1,4 @@
 class Util {
-
     constructor() {
         this.regulars = {
             name: /[a-zA-Zа-яёА-ЯЁ]{4,8}/,

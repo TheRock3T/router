@@ -1,7 +1,6 @@
 const methods = ["index", "sorting", "add"]
 
 class Posts {
-
     constructor() {
         util.autoHTML(this)
     }

@@ -1,5 +1,4 @@
 function connectClass() {
-
     eval("new " + autoLoader.className)
     util.statusFile = "CONNECTED"
 
