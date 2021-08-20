@@ -3,17 +3,15 @@ const methods = ["index", "sorting", "add"]
 class Users {
 
     constructor() {
-        util.parse()
         util.autoHTML(this)
     }
 
     async index() {
         const view = document.querySelector("#data")
-        const response = await fetch("./data/users.json")
-        const content = await response.text()
-        const parseJsonUsers = JSON.parse(content)
         let newUsers = ""
         let users = ""
+
+        await util.parse()
 
         if (util.locals.parseUsers !== null) {
             util.locals.parseUsers.forEach(item => {
@@ -28,7 +26,7 @@ class Users {
             })
         }
 
-        parseJsonUsers.forEach(item => {
+        util.parseData.forEach(item => {
             users += `
         <div class="block">
             <h1>ID:      ${item.userId}</h1>
@@ -46,6 +44,7 @@ class Users {
         let newUsers = ""
         let users = ""
 
+        await util.parse()
         util.filterParams(params)
         util.sortAge(util.parseData)
 

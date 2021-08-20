@@ -3,7 +3,6 @@ const methods = ["index", "sorting", "add"]
 class Posts {
 
     constructor() {
-        util.parse()
         util.autoHTML(this)
     }
 
@@ -11,6 +10,8 @@ class Posts {
         const view = document.querySelector("#data")
         let newPosts = ""
         let posts = ""
+
+        await util.parse()
 
         if (util.locals.parsePosts !== null) {
             util.locals.parsePosts.forEach(item => {
@@ -38,13 +39,11 @@ class Posts {
 
     async sorting() {
         const view = document.querySelector("#data")
-        const response = await fetch("./data/posts.json")
-        const content = await response.text()
-        const parseJsonPosts = JSON.parse(content)
         let newPosts = ""
         let users = ""
 
-        util.sortId(parseJsonPosts)
+        await util.parse()
+        util.sortId(util.parseData)
 
         if (util.locals.parsePosts !== null) {
             util.locals.parsePosts.forEach(item => {
@@ -58,7 +57,7 @@ class Posts {
             })
         }
 
-        parseJsonPosts.forEach(item => {
+        util.parseData.forEach(item => {
             users += `
         <div class="block">
             <h1>Номер:     ${item.postNum}</h1>
