@@ -23,6 +23,7 @@ class Util {
 
     filterParams(params) {
         params.forEach((item, index) => {
+
             if (index % 2 === 0) {
                 this.sortParam = item
             } else {

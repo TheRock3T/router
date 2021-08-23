@@ -1,8 +1,9 @@
 const classController = "error404"
 
-class Error404 {
+class Error404 extends MainController {
     constructor() {
-        util.autoHTML(this)
+        super()
+        this.autoHTML(this)
         this.hideNavs()
     }
 

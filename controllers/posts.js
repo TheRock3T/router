@@ -6,7 +6,7 @@ const classRegulars = {
     text: /[a-zA-Zа-яёА-ЯЁ]+/,
 }
 
-class Posts extends mainController {
+class Posts extends MainController {
     constructor() {
         super()
         this.autoHTML(this)
@@ -25,6 +25,7 @@ class Posts extends mainController {
 
     async sorting() {
         await this.parse()
+
         if (util.locals.parse !== null) {
             util.locals.parse.forEach(item => {
                 this.divPosts(item)
@@ -73,7 +74,6 @@ class Posts extends mainController {
             } else {
                 alert("Вы не ввели данные, попробуйте ввести данные еще раз!")
             }
-
             document.getElementById('myForm').reset()
         })
     }

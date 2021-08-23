@@ -4,6 +4,7 @@ let util = new Util()
 let autoLoader = new AutoLoader()
 let router = new Router()
 let connectMethod = new ConnectMethod()
+new MainController()
 
 addEventListener("load", autoLoader.handler)
 addEventListener("hashchange", router.handler)

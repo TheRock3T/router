@@ -1,4 +1,4 @@
-class mainController {
+class MainController {
     constructor() {
         this.newUsers = ""
         this.newPosts = ""
@@ -13,7 +13,7 @@ class mainController {
                 connectMethod.useMethod(classMethod)
                 this.view = document.getElementById("data")
             })
-            .catch(e => alert(e))
+            .catch(e => console.error(e))
     }
 
     async parse() {
@@ -51,5 +51,3 @@ class mainController {
                 `
     }
 }
-
-new mainController()

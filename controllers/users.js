@@ -8,7 +8,7 @@ const classRegulars = {
     age: /[0-9]{1,3}/
 }
 
-class Users extends mainController {
+class Users extends MainController {
     constructor() {
         super()
         this.autoHTML(this)
@@ -35,19 +35,19 @@ class Users extends mainController {
             let sortParam = util.sortParam
 
             if (sortParam === "userId") {
-                return item.userId == sortKey;
+                return item.userId === Number(sortKey)
             }
 
             if (sortParam === "name") {
-                return item.name === sortKey;
+                return item.name === sortKey
             }
 
             if (sortParam === "surName") {
-                return item.surName === sortKey;
+                return item.surName === sortKey
             }
 
             if (sortParam === "age") {
-                return item.age == sortKey;
+                return item.age === Number(sortKey)
             }
         })
 
