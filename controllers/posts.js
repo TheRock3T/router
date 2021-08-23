@@ -17,32 +17,19 @@ class Posts extends mainController {
 
         if (util.locals.parse !== null) {
             util.locals.parse.forEach(item => {
-                this.newPosts += `
-                <div class="block">
-                    <h1>Номер: ${item.postNum}</h1>
-                    <h1>Заголовок: ${item.title}</h1> 
-                    <h1>Текст: ${item.text}</h1>  
-                </div>
-                `
-                this.view.innerHTML = this.newPosts
+                this.divPosts(item)
             })
+            this.view.innerHTML = this.newPosts
         }
     }
 
     async sorting() {
         await this.parse()
-
         if (util.locals.parse !== null) {
             util.locals.parse.forEach(item => {
-                this.newPosts += `
-                <div class="block">
-                    <h1>Номер: ${item.postNum}</h1>
-                    <h1>Заголовок: ${item.title}</h1> 
-                    <h1>Текст: ${item.text}</h1>  
-                </div>
-                `
-                this.view.innerHTML = this.newPosts
+                this.divPosts(item)
             })
+            this.view.innerHTML = this.newPosts
         }
     }
 

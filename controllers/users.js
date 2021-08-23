@@ -19,16 +19,9 @@ class Users extends mainController {
 
         if (util.locals.parse !== null) {
             util.locals.parse.forEach(item => {
-                this.newUsers += `
-                <div class="block">
-                    <h1>ID:      ${item.userId}</h1> 
-                    <h1>Имя:     ${item.name}</h1>
-                    <h1>Фамилия: ${item.surName}</h1>
-                    <h1>Возраст: ${item.age}</h1>  
-                </div>
-                `
-                this.view.innerHTML = this.newUsers
+                this.divUsers(item)
             })
+            this.view.innerHTML = this.newUsers
         }
     }
 
@@ -60,39 +53,24 @@ class Users extends mainController {
 
         if (newJsonUser.length !== 0) {
             newJsonUser.forEach(item => {
-                this.newUsers += `
-            <div class="block">
-                <h1>ID:      ${item.userId}</h1>
-                <h1>Имя:     ${item.name}</h1> 
-                <h1>Фамилия: ${item.surName}</h1>
-                <h1>Возраст: ${item.age}</h1>   
-            </div>
-                `
-                this.view.innerHTML = this.newUsers
+                this.divUsers(item)
             })
         } else {
             util.locals.parse.forEach(item => {
-                this.newUsers += `
-            <div class="block">
-                <h1>ID:      ${item.userId}</h1>
-                <h1>Имя:     ${item.name}</h1> 
-                <h1>Фамилия: ${item.surName}</h1>
-                <h1>Возраст: ${item.age}</h1>   
-            </div>
-        `
-                this.view.innerHTML = this.newUsers
+                this.divUsers(item)
             })
 
             if (typeof util.sortParam !== "undefined" && classParams.includes(util.sortParam) === false) {
                 alert("Данный параметр не найден, будут выведены все пользователи")
             }
         }
+        this.view.innerHTML = this.newUsers
     }
 
     async add() {
         await this.parse()
 
-        document.querySelector("#data").innerHTML = `
+        this.view.innerHTML = `
             <div class="block">
                 <form id="myForm">
                     <input type="text" pattern="[a-zA-Zа-яёА-ЯЁ]{4,8}" name="nameUser" id="name" placeholder="NAME">
@@ -142,7 +120,6 @@ class Users extends mainController {
             } else {
                 alert("Поздравляю ты промазал по клаве и не попал по нужным клавишам, попробуй еще раз!")
             }
-
             document.getElementById('myForm').reset()
         })
     }
