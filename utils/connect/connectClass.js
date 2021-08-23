@@ -3,7 +3,7 @@ function connectClass() {
     util.statusFile = "CONNECTED"
 
     if (typeof method !== "undefined"
-        && methods.includes(method) === false
+        && classMethods.includes(method) === false
         && classController.includes(controller)) {
         util.defaultValue.statusError = true
         router.handler()

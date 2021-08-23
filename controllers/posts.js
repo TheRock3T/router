@@ -6,52 +6,50 @@ const classRegulars = {
     text: /[a-zA-Zа-яёА-ЯЁ]+/,
 }
 
-class Posts {
+class Posts extends mainController {
     constructor() {
-        util.autoHTML(this)
+        super()
+        this.autoHTML(this)
     }
 
     async index() {
-        const view = document.querySelector("#data")
-        let newPosts = ""
-        await util.parse()
+        await this.parse()
 
         if (util.locals.parse !== null) {
             util.locals.parse.forEach(item => {
-                newPosts += `
+                this.newPosts += `
                 <div class="block">
                     <h1>Номер: ${item.postNum}</h1>
                     <h1>Заголовок: ${item.title}</h1> 
                     <h1>Текст: ${item.text}</h1>  
                 </div>
                 `
-                view.innerHTML = newPosts
+                this.view.innerHTML = this.newPosts
             })
         }
     }
 
     async sorting() {
-        const view = document.querySelector("#data")
-        let newPosts = ""
-
-        await util.parse()
+        await this.parse()
 
         if (util.locals.parse !== null) {
             util.locals.parse.forEach(item => {
-                newPosts += `
+                this.newPosts += `
                 <div class="block">
                     <h1>Номер: ${item.postNum}</h1>
                     <h1>Заголовок: ${item.title}</h1> 
                     <h1>Текст: ${item.text}</h1>  
                 </div>
                 `
-                view.innerHTML = newPosts
+                this.view.innerHTML = this.newPosts
             })
         }
     }
 
-    add() {
-        document.querySelector("#data").innerHTML = ` 
+    async add() {
+        await this.parse()
+
+        this.view.innerHTML = ` 
                 <div class="block">
                     <form id="myForm">
                         <input type="text" pattern="[0-9]+"   id="numPost" name="title" placeholder="POST NUMBER">
@@ -66,7 +64,7 @@ class Posts {
         let inputTitlePost = document.getElementById("titlePost")
         let inputTextPost = document.getElementById("textPost")
 
-        clickBtn.addEventListener("click", async () => {
+        clickBtn.addEventListener("click", () => {
 
             if (inputTextPost.value !== ""
                 && inputTitlePost.value !== ""
@@ -77,8 +75,6 @@ class Posts {
                 && classRegulars.number.test(inputNumPost.value) === true
                 && classRegulars.title.test(inputTitlePost.value) === true
                 && classRegulars.text.test(inputTextPost.value) === true) {
-
-                await util.parse()
 
                 const parsePosts = JSON.parse(localStorage.getItem("posts"))
                 parsePosts.push({postNum: inputNumPost.value, title: inputTitlePost.value, text: inputTextPost.value})

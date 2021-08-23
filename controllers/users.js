@@ -8,20 +8,18 @@ const classRegulars = {
     age: /[0-9]{1,3}/
 }
 
-class Users {
+class Users extends mainController {
     constructor() {
-        util.autoHTML(this)
+        super()
+        this.autoHTML(this)
     }
 
     async index() {
-        const view = document.querySelector("#data")
-        let newUsers = ""
-
-        await util.parse()
+        await this.parse()
 
         if (util.locals.parse !== null) {
             util.locals.parse.forEach(item => {
-                newUsers += `
+                this.newUsers += `
                 <div class="block">
                     <h1>ID:      ${item.userId}</h1> 
                     <h1>Имя:     ${item.name}</h1>
@@ -29,17 +27,14 @@ class Users {
                     <h1>Возраст: ${item.age}</h1>  
                 </div>
                 `
-                view.innerHTML = newUsers
+                this.view.innerHTML = this.newUsers
             })
         }
     }
 
     async sorting() {
-        const view = document.querySelector("#data")
-        let newUsers = ""
+        await this.parse()
 
-
-        await util.parse()
         util.filterParams(params)
 
         const newJsonUser = util.locals.parse.filter((item) => {
@@ -65,7 +60,7 @@ class Users {
 
         if (newJsonUser.length !== 0) {
             newJsonUser.forEach(item => {
-                newUsers += `
+                this.newUsers += `
             <div class="block">
                 <h1>ID:      ${item.userId}</h1>
                 <h1>Имя:     ${item.name}</h1> 
@@ -73,11 +68,11 @@ class Users {
                 <h1>Возраст: ${item.age}</h1>   
             </div>
                 `
-                view.innerHTML = newUsers
+                this.view.innerHTML = this.newUsers
             })
         } else {
             util.locals.parse.forEach(item => {
-                newUsers += `
+                this.newUsers += `
             <div class="block">
                 <h1>ID:      ${item.userId}</h1>
                 <h1>Имя:     ${item.name}</h1> 
@@ -85,7 +80,7 @@ class Users {
                 <h1>Возраст: ${item.age}</h1>   
             </div>
         `
-                view.innerHTML = newUsers
+                this.view.innerHTML = this.newUsers
             })
 
             if (typeof util.sortParam !== "undefined" && classParams.includes(util.sortParam) === false) {
@@ -94,10 +89,12 @@ class Users {
         }
     }
 
-    add() {
+    async add() {
+        await this.parse()
+
         document.querySelector("#data").innerHTML = `
             <div class="block">
-                <form>
+                <form id="myForm">
                     <input type="text" pattern="[a-zA-Zа-яёА-ЯЁ]{4,8}" name="nameUser" id="name" placeholder="NAME">
                     <input type="text" pattern="[a-zA-Zа-яёА-ЯЁ]{2,15}" name="surName" id="surname" placeholder="SURNAME">
                     <input type="text" pattern="[0-9]{1,3}" name="age" id="age" placeholder="AGE">
@@ -109,7 +106,7 @@ class Users {
 
         let clickBtn = document.getElementById("clickBtn")
 
-        clickBtn.addEventListener("click", async () => {
+        clickBtn.addEventListener("click", () => {
             let inputName = document.getElementById("name");
             let inputSurname = document.getElementById("surname");
             let inputAge = document.getElementById("age");
@@ -127,8 +124,6 @@ class Users {
                 && classRegulars.surname.test(inputSurname.value) === true
                 && classRegulars.age.test(inputAge.value) === true
                 && classRegulars.id.test(inputId.value) === true) {
-
-                await util.parse()
 
                 const parseUsers = JSON.parse(localStorage.getItem("users"))
                 parseUsers.push({
