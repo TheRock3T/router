@@ -6,7 +6,7 @@ class Util {
         }
 
         this.locals = {
-            parse: JSON.parse(localStorage.getItem(`${controller}`)),
+            parse: JSON.parse(localStorage.getItem(`${controller}`))
         }
 
         this.defaultValue = {
@@ -33,6 +33,6 @@ class Util {
     }
 
     sortNums(arr) {
-        arr.sort((a, b) => a.postNum > b.postNum ? 1 : -1);
+        arr.sort((a, b) => a.postNum > b.postNum ? 1 : -1)
     }
 }

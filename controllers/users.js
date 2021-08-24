@@ -85,10 +85,10 @@ class Users extends MainController {
         let clickBtn = document.getElementById("clickBtn")
 
         clickBtn.addEventListener("click", () => {
-            let inputName = document.getElementById("name");
-            let inputSurname = document.getElementById("surname");
-            let inputAge = document.getElementById("age");
-            let inputId = document.getElementById("id");
+            let inputName = document.getElementById("name")
+            let inputSurname = document.getElementById("surname")
+            let inputAge = document.getElementById("age")
+            let inputId = document.getElementById("id")
 
             if (inputName.value !== ""
                 && inputSurname.value !== ""
@@ -110,7 +110,7 @@ class Users extends MainController {
                     surName: inputSurname.value,
                     age: Number(inputAge.value)
                 })
-                localStorage.setItem("users", JSON.stringify(parseUsers));
+                localStorage.setItem("users", JSON.stringify(parseUsers))
 
                 alert(`Добавлен новый пользователь:  
                    NAME: ${inputName.value},  

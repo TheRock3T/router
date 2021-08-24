@@ -71,7 +71,8 @@ class Posts extends MainController {
                     postNum: Number(inputNumPost.value),
                     title: inputTitlePost.value,
                     text: inputTextPost.value})
-                localStorage.setItem("posts", JSON.stringify(parsePosts));
+                localStorage.setItem("posts", JSON.stringify(parsePosts))
+
                 alert(`Добавлен новый пост:  
                     NUMBER POST: ${inputNumPost.value},
                     TITLE: ${inputTitlePost.value},
