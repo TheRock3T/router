@@ -105,10 +105,10 @@ class Users extends MainController {
 
                 const parseUsers = JSON.parse(localStorage.getItem("users"))
                 parseUsers.push({
-                    userId: inputId.value,
+                    userId: Number(inputId.value),
                     name: inputName.value,
                     surName: inputSurname.value,
-                    age: inputAge.value
+                    age: Number(inputAge.value)
                 })
                 localStorage.setItem("users", JSON.stringify(parseUsers));
 

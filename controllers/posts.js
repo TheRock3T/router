@@ -3,7 +3,7 @@ const classController = "posts"
 const classRegulars = {
     number: /[0-9]+/,
     title: /[a-zA-Zа-яёА-ЯЁ]{1,25}/,
-    text: /[a-zA-Zа-яёА-ЯЁ]+/,
+    text: /[a-zA-Zа-яёА-ЯЁ]+/
 }
 
 class Posts extends MainController {
@@ -47,6 +47,7 @@ class Posts extends MainController {
                     </form>  
                 </div>
                 `
+
         let clickBtn = document.getElementById("clickBtn")
         let inputNumPost = document.getElementById("numPost")
         let inputTitlePost = document.getElementById("titlePost")
@@ -65,7 +66,10 @@ class Posts extends MainController {
                 && classRegulars.text.test(inputTextPost.value) === true) {
 
                 const parsePosts = JSON.parse(localStorage.getItem("posts"))
-                parsePosts.push({postNum: inputNumPost.value, title: inputTitlePost.value, text: inputTextPost.value})
+                parsePosts.push({
+                    postNum: Number(inputNumPost.value),
+                    title: inputTitlePost.value,
+                    text: inputTextPost.value})
                 localStorage.setItem("posts", JSON.stringify(parsePosts));
                 alert(`Добавлен новый пост:  
                     NUMBER POST: ${inputNumPost.value},
