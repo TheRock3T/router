@@ -25,6 +25,7 @@ class Posts extends MainController {
 
     async sorting() {
         await this.parse()
+        util.sortNums(util.locals.parse)
 
         if (util.locals.parse !== null) {
             util.locals.parse.forEach(item => {

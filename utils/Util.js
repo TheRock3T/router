@@ -31,4 +31,8 @@ class Util {
             }
         })
     }
+
+    sortNums(arr) {
+        arr.sort((a, b) => a.postNum > b.postNum ? 1 : -1);
+    }
 }
