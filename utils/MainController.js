@@ -7,13 +7,13 @@ class MainController {
     autoHTML(classMethod) {
         const contentUrl = `./views/${controller}.html`
         fetch(contentUrl)
-            .then(r => r.text())
+            .then(res => res.text())
             .then(content => {
                 this.updateSlot(content)
                 connectMethod.useMethod(classMethod)
                 this.view = document.getElementById("data")
             })
-            .catch(e => console.error(e))
+            .catch(err => console.error(err))
     }
 
     async parse() {

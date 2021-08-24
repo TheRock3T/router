@@ -67,10 +67,13 @@ class Posts extends MainController {
                 && classRegulars.text.test(inputTextPost.value) === true) {
 
                 const parsePosts = JSON.parse(localStorage.getItem("posts"))
+
                 parsePosts.push({
                     postNum: Number(inputNumPost.value),
                     title: inputTitlePost.value,
-                    text: inputTextPost.value})
+                    text: inputTextPost.value
+                })
+
                 localStorage.setItem("posts", JSON.stringify(parsePosts))
 
                 alert(`Добавлен новый пост:  

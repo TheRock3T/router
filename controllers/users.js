@@ -104,12 +104,14 @@ class Users extends MainController {
                 && classRegulars.id.test(inputId.value) === true) {
 
                 const parseUsers = JSON.parse(localStorage.getItem("users"))
+
                 parseUsers.push({
                     userId: Number(inputId.value),
                     name: inputName.value,
                     surName: inputSurname.value,
                     age: Number(inputAge.value)
                 })
+
                 localStorage.setItem("users", JSON.stringify(parseUsers))
 
                 alert(`Добавлен новый пользователь:  
