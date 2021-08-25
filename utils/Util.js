@@ -40,7 +40,7 @@ class Util {
         let result = true
 
         checkItem.forEach((item) => {
-            console.log(checkItem)
+
             if (item.value !== ""
                 && typeof item.value !== "undefined"
                 && classRegulars[item.name].test(item.value) === true) {
