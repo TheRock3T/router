@@ -17,9 +17,9 @@ class Posts extends Base {
 
         if (util.locals.parse !== null) {
             util.locals.parse.forEach(item => {
-                this.divPosts(item)
+                util.divPosts(item)
             })
-            this.view.innerHTML = this.newPosts
+            this.view.innerHTML = util.newPosts
         }
     }
 
@@ -29,9 +29,9 @@ class Posts extends Base {
 
         if (util.locals.parse !== null) {
             util.locals.parse.forEach(item => {
-                this.divPosts(item)
+                util.divPosts(item)
             })
-            this.view.innerHTML = this.newPosts
+            this.view.innerHTML = util.newPosts
         }
     }
 

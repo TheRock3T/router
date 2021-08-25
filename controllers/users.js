@@ -19,9 +19,9 @@ class Users extends Base {
 
         if (util.locals.parse !== null) {
             util.locals.parse.forEach(item => {
-                this.divUsers(item)
+                util.divUsers(item)
             })
-            this.view.innerHTML = this.newUsers
+            this.view.innerHTML = util.newUsers
         }
     }
 
@@ -48,18 +48,18 @@ class Users extends Base {
 
         if (newJsonUser.length !== 0) {
             newJsonUser.forEach(item => {
-                this.divUsers(item)
+                util.divUsers(item)
             })
         } else {
             util.locals.parse.forEach(item => {
-                this.divUsers(item)
+                util.divUsers(item)
             })
 
             if (typeof util.sortParam !== "undefined" && classParams.includes(util.sortParam) === false) {
                 alert("Данный параметр не найден, будут выведены все пользователи")
             }
         }
-        this.view.innerHTML = this.newUsers
+        this.view.innerHTML = util.newUsers
     }
 
     async add() {

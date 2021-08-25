@@ -1,7 +1,6 @@
 class Base {
     constructor() {
-        this.newUsers = ""
-        this.newPosts = ""
+
     }
 
     autoHTML(classMethod) {
@@ -28,26 +27,5 @@ class Base {
 
     updateSlot(content) {
         document.querySelector("#slot").innerHTML = content
-    }
-
-    divUsers(item) {
-        this.newUsers += `
-                <div class="block">
-                    <h1>ID:      ${item.id}</h1> 
-                    <h1>Имя:     ${item.name}</h1>
-                    <h1>Фамилия: ${item.surName}</h1>
-                    <h1>Возраст: ${item.age}</h1>  
-                </div>
-                `
-    }
-
-    divPosts(item) {
-        this.newPosts += `
-                <div class="block">
-                    <h1>Номер: ${item.id}</h1>
-                    <h1>Заголовок: ${item.title}</h1> 
-                    <h1>Текст: ${item.text}</h1>  
-                </div>
-                `
     }
 }
