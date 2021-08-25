@@ -33,13 +33,14 @@ class Util {
     }
 
     sortNums(arr) {
-        arr.sort((a, b) => a.postNum > b.postNum ? 1 : -1)
+        arr.sort((a, b) => a.id > b.id ? 1 : -1)
     }
 
     validChecker(...checkItem) {
         let result = true
+
         checkItem.forEach((item) => {
-            console.log(classRegulars[item.name])
+            console.log(checkItem)
             if (item.value !== ""
                 && typeof item.value !== "undefined"
                 && classRegulars[item.name].test(item.value) === true) {
@@ -49,5 +50,12 @@ class Util {
             }
         })
         return result
+    }
+
+    validId(itemId) {
+        let checkId = []
+
+        this.locals.parse.forEach((item) => checkId.push(item.id))
+            return checkId.includes(itemId)
     }
 }

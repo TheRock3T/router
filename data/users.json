@@ -1,36 +1,36 @@
 [
   {
-    "userId": 1,
+    "id": 1,
     "name": "Pavell",
     "surName": "Kekdalo",
     "age": 27
   },
   {
-    "userId": 2,
+    "id": 2,
     "name": "Evgeniy",
     "surName": "Makar",
     "age": 28
   },
   {
-    "userId": 3,
+    "id": 3,
     "name": "Slaves",
     "surName": "Garchichko",
     "age": 19
   },
   {
-    "userId": 4,
+    "id": 4,
     "name": "Ari",
     "surName": "Child",
     "age": 19
   },
   {
-    "userId": 5,
+    "id": 5,
     "name": "Igor",
     "surName": "Patselya",
     "age": 23
   },
   {
-    "userId": 6,
+    "id": 6,
     "name": "Dimaso",
     "surName": "Rudakov,",
     "age": 20

@@ -1,7 +1,7 @@
 const classMethods = ["index", "sorting", "add"]
 const classController = "posts"
 const classRegulars = {
-    postNum: /[0-9]+/,
+    id: /[0-9]+/,
     title: /[a-zA-Zа-яёА-ЯЁ]{1,25}/,
     text: /[a-zA-Zа-яёА-ЯЁ]+/
 }
@@ -41,7 +41,7 @@ class Posts extends Base {
         this.view.innerHTML = ` 
                 <div class="block">
                     <form id="myForm">
-                        <input type="text" pattern="[0-9]+"   id="postNum" name="postNum" placeholder="POST NUMBER">
+                        <input type="text" pattern="[0-9]+"   id="id" name="id" placeholder="POST NUMBER">
                         <input type="text" pattern="[a-zA-Zа-яёА-ЯЁ]{1,25}"  id="title" name="title" placeholder="TITLE POST">
                         <input type="text" pattern="[a-zA-Zа-яёА-ЯЁ]+"  id="text" name="text" placeholder="TEXT POST">
                         <button type="button" id="clickBtn">ADD POST IN DATABASE</button>
@@ -50,18 +50,19 @@ class Posts extends Base {
                 `
 
         let clickBtn = document.getElementById("clickBtn")
-        let postNum = document.getElementById("postNum")
+        let id = document.getElementById("id")
         let title = document.getElementById("title")
         let text = document.getElementById("text")
 
         clickBtn.addEventListener("click", () => {
 
-            if (util.validChecker(postNum, title, text) === 1) {
+            if (util.validChecker(id, title, text) === 1
+                && util.validId(Number(id.value)) === false) {
 
                 const parsePosts = JSON.parse(localStorage.getItem("posts"))
 
                 parsePosts.push({
-                    postNum: Number(postNum.value),
+                    id: Number(id.value),
                     title: title.value,
                     text: text.value
                 })
@@ -69,7 +70,7 @@ class Posts extends Base {
                 localStorage.setItem("posts", JSON.stringify(parsePosts))
 
                 alert(`Добавлен новый пост:  
-                    NUMBER POST: ${postNum.value},
+                    NUMBER POST: ${id.value},
                     TITLE: ${title.value},
                     TEXT: ${text.value}`)
             } else {

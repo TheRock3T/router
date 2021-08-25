@@ -1,6 +1,6 @@
 const classMethods = ["index", "search", "add"]
 const classController = "users"
-const classParams = ["userId", "name", "surName", "age"]
+const classParams = ["id", "name", "surName", "age"]
 const classRegulars = {
     name: /[a-zA-Zа-яёА-ЯЁ]{2,64}/,
     surname: /[a-zA-Zа-яёА-ЯЁ]{2,64}/,
@@ -85,11 +85,12 @@ class Users extends Base {
             let age = document.getElementById("age")
             let id = document.getElementById("id")
 
-            if (util.validChecker(name, surname, age, id) === 1) {
+            if (util.validChecker(name, surname, age, id) === 1
+                && util.validId(Number(id.value)) === false) {
                 const parseUsers = JSON.parse(localStorage.getItem("users"))
 
                 parseUsers.push({
-                    userId: Number(id.value),
+                    id: Number(id.value),
                     name: name.value,
                     surName: surname.value,
                     age: Number(age.value)
