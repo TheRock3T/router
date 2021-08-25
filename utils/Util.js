@@ -35,4 +35,19 @@ class Util {
     sortNums(arr) {
         arr.sort((a, b) => a.postNum > b.postNum ? 1 : -1)
     }
+
+    validChecker(...checkItem) {
+        let result = true
+        checkItem.forEach((item) => {
+            console.log(classRegulars[item.name])
+            if (item.value !== ""
+                && typeof item.value !== "undefined"
+                && classRegulars[item.name].test(item.value) === true) {
+                result &= true
+            } else {
+                result &= false
+            }
+        })
+        return result
+    }
 }

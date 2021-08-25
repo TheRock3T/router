@@ -1,6 +1,6 @@
 const classController = "error404"
 
-class Error404 extends MainController {
+class Error404 extends Base {
     constructor() {
         super()
         this.autoHTML(this)

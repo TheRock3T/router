@@ -1,4 +1,4 @@
-class MainController {
+class Base {
     constructor() {
         this.newUsers = ""
         this.newPosts = ""

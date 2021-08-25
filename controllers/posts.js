@@ -1,12 +1,12 @@
 const classMethods = ["index", "sorting", "add"]
 const classController = "posts"
 const classRegulars = {
-    number: /[0-9]+/,
+    postNum: /[0-9]+/,
     title: /[a-zA-Zа-яёА-ЯЁ]{1,25}/,
     text: /[a-zA-Zа-яёА-ЯЁ]+/
 }
 
-class Posts extends MainController {
+class Posts extends Base {
     constructor() {
         super()
         this.autoHTML(this)
@@ -41,45 +41,37 @@ class Posts extends MainController {
         this.view.innerHTML = ` 
                 <div class="block">
                     <form id="myForm">
-                        <input type="text" pattern="[0-9]+"   id="numPost" name="title" placeholder="POST NUMBER">
-                        <input type="text" pattern="[a-zA-Zа-яёА-ЯЁ]{1,25}"  id="titlePost" name="title" placeholder="TITLE POST">
-                        <input type="text" pattern="[a-zA-Zа-яёА-ЯЁ]+"  id="textPost" name="text" placeholder="TEXT POST">
+                        <input type="text" pattern="[0-9]+"   id="postNum" name="postNum" placeholder="POST NUMBER">
+                        <input type="text" pattern="[a-zA-Zа-яёА-ЯЁ]{1,25}"  id="title" name="title" placeholder="TITLE POST">
+                        <input type="text" pattern="[a-zA-Zа-яёА-ЯЁ]+"  id="text" name="text" placeholder="TEXT POST">
                         <button type="button" id="clickBtn">ADD POST IN DATABASE</button>
                     </form>  
                 </div>
                 `
 
         let clickBtn = document.getElementById("clickBtn")
-        let inputNumPost = document.getElementById("numPost")
-        let inputTitlePost = document.getElementById("titlePost")
-        let inputTextPost = document.getElementById("textPost")
+        let postNum = document.getElementById("postNum")
+        let title = document.getElementById("title")
+        let text = document.getElementById("text")
 
         clickBtn.addEventListener("click", () => {
 
-            if (inputTextPost.value !== ""
-                && inputTitlePost.value !== ""
-                && inputNumPost.value !== ""
-                && typeof inputNumPost.value !== "undefined"
-                && typeof inputTitlePost.value !== "undefined"
-                && typeof inputTextPost.value !== "undefined"
-                && classRegulars.number.test(inputNumPost.value) === true
-                && classRegulars.title.test(inputTitlePost.value) === true
-                && classRegulars.text.test(inputTextPost.value) === true) {
+            if (util.validChecker(postNum, title, text) === 1) {
 
                 const parsePosts = JSON.parse(localStorage.getItem("posts"))
 
                 parsePosts.push({
-                    postNum: Number(inputNumPost.value),
-                    title: inputTitlePost.value,
-                    text: inputTextPost.value
+                    postNum: Number(postNum.value),
+                    title: title.value,
+                    text: text.value
                 })
 
                 localStorage.setItem("posts", JSON.stringify(parsePosts))
 
                 alert(`Добавлен новый пост:  
-                    NUMBER POST: ${inputNumPost.value},
-                    TITLE: ${inputTitlePost.value},
-                    TEXT: ${inputTextPost.value}`)
+                    NUMBER POST: ${postNum.value},
+                    TITLE: ${title.value},
+                    TEXT: ${text.value}`)
             } else {
                 alert("Вы не ввели данные, попробуйте ввести данные еще раз!")
             }
